@@ -10,14 +10,4 @@ public class HelloController {
     public String hello() {
         return "hello";
     }
-
-    @GetMapping("/develop")
-    public String develop() {
-        return "hello";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "hello";
-    }
 }
