@@ -17,9 +17,9 @@ public class User {
     private String name;
     private String birth;
     private int gender;
-    private String login_id;
+    private String loginId;
     private String password;
-    private String phone_number;
+    private String phoneNumber;
     private String email;
     private String role;
 }
