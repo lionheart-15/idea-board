@@ -2,6 +2,7 @@ package com.lionheart15.ideaboard;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HelloController {
@@ -19,5 +20,10 @@ public class HelloController {
     @GetMapping("/login")
     public String login() {
         return "hello";
+    }
+
+    @PostMapping("/hello2")
+    public String hello2(){
+        return "happy";
     }
 }
