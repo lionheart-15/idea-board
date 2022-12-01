@@ -1,4 +1,4 @@
-package com.lionheart15.ideaboard.domain;
+package com.lionheart15.ideaboard.domain.entity;
 
 import lombok.*;
 
