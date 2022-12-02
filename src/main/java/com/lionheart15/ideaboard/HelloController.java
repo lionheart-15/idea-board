@@ -26,4 +26,12 @@ public class HelloController {
     public String hello2(){
         return "happy";
     }
+
+    @PostMapping("/login")
+    public String login1(){
+        return "hello";
+    }
+
+    //test commit
+    //test 2
 }
