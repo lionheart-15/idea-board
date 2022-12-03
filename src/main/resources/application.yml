@@ -1,5 +1,6 @@
 # 한글 깨지는 현상 방지
 server:
+  port: 8080
   servlet:
     encoding:
       force-response: true
@@ -8,9 +9,9 @@ spring:
   # DB 연결 정보
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/idea-board
+    url: jdbc:mysql://<host>:3306/idea-market
     username: root
-    password: root1234
+    password: <host>
 
   # JPA 설정
   jpa:
