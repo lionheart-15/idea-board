@@ -19,7 +19,7 @@ public class HelloController {
 
     @GetMapping("/login")
     public String login() {
-        return "hello";
+        return "login";
     }
 
     @PostMapping("/hello2")
@@ -29,9 +29,8 @@ public class HelloController {
 
     @PostMapping("/login")
     public String login1(){
-        return "hello";
+        return "login";
     }
 
-    //test commit
-    //test 2
+
 }
