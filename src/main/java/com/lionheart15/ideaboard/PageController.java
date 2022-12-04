@@ -5,34 +5,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class HelloController {
+public class PageController {
 
-    @GetMapping("/hello")
+    @GetMapping(value = {"/hello", "", "/"})
     public String hello() {
         return "hello";
     }
 
-    @GetMapping("/develop")
-    public String develop() {
-        return "hello";
-    }
-
     @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @PostMapping("/hello2")
-    public String hello2(){
-        return "happy";
-    }
-
-    @PostMapping("/login")
-    public String login1(){
+    public String loginPage(){
         return "login";
     }
     @GetMapping("/signup")
-    public String signup(){
+    public String signupPage(){
         return "signup";
     }
 
@@ -53,5 +38,10 @@ public class HelloController {
     @GetMapping("/detail")
     public String detailPage() {
         return "detail";
+    }
+
+    @GetMapping("/mypage")
+    public String myPage() {
+        return "mypage";
     }
 }
