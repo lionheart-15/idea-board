@@ -40,4 +40,14 @@ public class HelloController {
     public String listPage() {
         return "list";
     }
+
+    @GetMapping("/writer")
+    public String writerPage() {
+        return "writer";
+    }
+
+    @GetMapping("/detail")
+    public String detailPage() {
+        return "detail";
+    }
 }
