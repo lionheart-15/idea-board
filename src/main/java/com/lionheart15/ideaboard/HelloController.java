@@ -31,6 +31,10 @@ public class HelloController {
     public String login1(){
         return "login";
     }
+    @GetMapping("/signup")
+    public String signup(){
+        return "signup";
+    }
 
     @GetMapping("/main")
     public String mainPage() {
