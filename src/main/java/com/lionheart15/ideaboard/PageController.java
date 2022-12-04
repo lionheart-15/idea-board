@@ -1,6 +1,7 @@
 package com.lionheart15.ideaboard;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -41,7 +42,13 @@ public class PageController {
     }
 
     @GetMapping("/mypage")
-    public String myPage() {
+    public String myPage(Model model) {
+        model.addAttribute("loginInfo", 1);
+        return "mypage";
+    }
+
+    @GetMapping("/mypage2")
+    public String myPage2() {
         return "mypage";
     }
 }
