@@ -32,5 +32,12 @@ public class HelloController {
         return "login";
     }
 
-
+    @GetMapping("/main")
+    public String mainPage() {
+        return "main";
+    }
+    @GetMapping("/list")
+    public String listPage() {
+        return "list";
+    }
 }
