@@ -34,4 +34,13 @@ public class HelloController {
 
     //test commit
     //test 2
+
+    @GetMapping("/main")
+    public String mainPage() {
+        return "main";
+    }
+    @GetMapping("/list")
+    public String listPage() {
+        return "list";
+    }
 }

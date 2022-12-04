@@ -1,0 +1,56 @@
+{{>layouts/header}}
+<br>
+<div>
+    <form action="/list" method="get" class="row">
+        <div class="offset-1 col-3">
+            <h3>1번 카테고리 이름</h3>
+        </div>
+        <div class="offset-4 col-3 text-end">
+            <input type="text" name="keyword" style="width: 250px">
+            <button type="submit" class="btn btn-primary">검색</button>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="offset-1 col-10">
+        <table class="table text-center" style="margin-top: 20px; margin-bottom: 50px;">
+            <thead class="table-warning">
+            <tr>
+                <th class="col-md-1">Id</th>
+                <th class="col-md-4">제목</th>
+                <th class="col-md-3">작성자</th>
+                <th class="col-md-1">댓글수</th>
+                <th class="col-md-1">좋아요</th>
+                <th class="col-md-2">작성일자</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr>
+                    <th>1</th>
+                    <td><a href="/">제목111</a></td>
+                    <td>유저1</td>
+                    <td>10</td>
+                    <td>23</td>
+                    <td>20221204</td>
+                </tr>
+                <tr><th>2</th><td><a href="/">제목2</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
+                <tr><th>3</th><td><a href="/">제목3</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
+                <tr><th>4</th><td><a href="/">제목4</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
+                <tr><th>5</th><td><a href="/">제목5</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
+                <tr><th>6</th><td><a href="/">제목6</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
+                <tr><th>7</th><td><a href="/">제목7</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
+                <tr><th>8</th><td><a href="/">제목8</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
+                <tr><th>9</th><td><a href="/">제목9</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
+                <tr><th>10</th><td><a href="/">제목10</a></td><td>유저10</td><td>10</td><td>23</td><td>20221204</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="offset-4 col-4 text-center">
+        <button class="btn btn-primary">이전페이지</button>
+        <button class="btn btn-primary">다음페이지</button>
+    </div>
+    <div class="col-3 text-end">
+        <button class="btn btn-danger">글 작성</button>
+    </div>
+</div>
+{{>layouts/footer}}
