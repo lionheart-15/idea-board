@@ -11,7 +11,13 @@ h1 {
     margin: 0;
 }
 a {
-    color: #333;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+.link{
+    color: #2b67ff;
     font-size: 14px;
     text-decoration: none;
     margin: 15px 0;

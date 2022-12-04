@@ -1,0 +1,44 @@
+{{>layouts/header}}
+    <link href="/css/signuppage.css" rel="stylesheet">
+<br>
+<div>
+    <form action="#">
+      <h1>회원 가입</h1>
+
+
+      <input type="text" placeholder="이름" />
+
+      <div class="birth">
+      <input class="birth_inp" type="text" placeholder="출생년도" />
+      <input class="birth_inp" type="text" placeholder="월" />
+      <input class="birth_inp" type="text" placeholder="일" />
+      </div>
+      <div class="radio_box">
+        <p>성별</p>
+        <input class="radio_inp" type="radio" name="gender" id="male"/>
+        <p>남자</p>
+        <input class="radio_inp"  type="radio" name="gender" id="female"/>
+        <p>여자</p>
+        <input class="radio_inp"  type="radio" name="gender" id="none"/>
+        <p>기타</p>
+      </div>
+      <input type="text" placeholder="아이디" />
+      <input type="password" placeholder="비밀번호" />
+      <input type="password" placeholder="비밀번호 확인" />
+      <input type="text" placeholder="전화번호" />
+      <div class="check">
+      <input class="birth_inp" type="email"  placeholder="이메일" />
+      <button type="button" class="btn btn-secondary btn-sm ">인증번호
+      전송</button>
+      </div>
+      <div class="check">
+      <input class="birth_inp" type="text" placeholder="이메일 인증 번호" />
+      <button type="button" class="btn btn-secondary btn-sm">인증번호 확인</button>
+      </div>
+      <button>가입하기</button>
+      <a href="login">로그인 하기</a>
+      </form>
+
+ </div>
+<br>
+{{>layouts/footer}}
