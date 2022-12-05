@@ -1,9 +1,8 @@
-package com.lionheart15.ideaboard;
+package com.lionheart15.ideamarket;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PageController {

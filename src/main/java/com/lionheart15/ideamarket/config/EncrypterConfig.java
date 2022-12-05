@@ -1,4 +1,4 @@
-package com.lionheart15.ideaboard.config;
+package com.lionheart15.ideamarket.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
