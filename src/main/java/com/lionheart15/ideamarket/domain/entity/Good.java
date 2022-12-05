@@ -1,4 +1,4 @@
-package com.lionheart15.ideaboard.domain.entity;
+package com.lionheart15.ideamarket.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

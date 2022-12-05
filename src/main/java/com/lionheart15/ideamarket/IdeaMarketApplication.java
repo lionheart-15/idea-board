@@ -1,13 +1,13 @@
-package com.lionheart15.ideaboard;
+package com.lionheart15.ideamarket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class IdeaBoardApplication {
+public class IdeaMarketApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(IdeaBoardApplication.class, args);
+        SpringApplication.run(IdeaMarketApplication.class, args);
     }
 
 }

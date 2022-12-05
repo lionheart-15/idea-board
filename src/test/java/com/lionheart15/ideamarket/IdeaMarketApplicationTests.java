@@ -1,10 +1,10 @@
-package com.lionheart15.ideaboard;
+package com.lionheart15.ideamarket;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class IdeaBoardApplicationTests {
+class IdeaMarketApplicationTests {
 
     @Test
     void contextLoads() {
