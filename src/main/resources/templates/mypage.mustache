@@ -1,7 +1,5 @@
-{{>layouts/header}}
-{{#loginInfo}}
-    <!--마이페이지 헤더-->
-    <link href="/css/mypage.css" rel="stylesheet">
+<!--로그인 했을 때-->
+{{#loginfo}}
     <nav class="navbar navbar-expand-lg" style="background-color: lightskyblue">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Idea-Board</a>
@@ -32,16 +30,18 @@
                     <li class="nav-item">
                         <p class="user" style="width: 150px">ooo님의 마이페이지</p>
                     </li>
+                    <li class="mypage-config">
+                        <a class="logout ml-auto">개인정보수정</a>
+                    </li>
                     <li class="logout">
                         <a class="logout ml-auto">로그아웃</a>
                     </li>
-
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!--작성한 글-->
+
     <div class="accordion py-5" id="accordionExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
@@ -103,14 +103,13 @@
                 </nav>
             </div>
         </div>
-
-        <!--작성한 댓글-->
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     내가 작성한 댓글
                 </button>
             </h2>
+
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <!-- 리스트 -->
@@ -227,11 +226,14 @@
         </div>
     </div>
     </div>
-{{/loginInfo}}
-{{^loginInfo}}
-    <div class="alert alert-secondary mt-5" role="alert">
-        로그인을 해주세요!
-    </div>
-{{/loginInfo}}
+    {{>layouts/footer}}
+{{/loginfo}}
 
-{{>layouts/footer}}
+<!--로그인하지 않았을 때-->
+{{^loginfo}}
+    {{>layouts/header}}
+    <div class="alert alert-secondary mt-3" role="alert">
+        로그인 후 이용이 가능합니다.
+    </div>
+    {{>layouts/footer}}
+{{/loginfo}}
