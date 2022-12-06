@@ -1,6 +1,7 @@
 package com.lionheart15.ideamarket.domain.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,19 +12,24 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;        // 이름 (본명)
+
     private String birth;       // 생년월일 (YYYYMMDD)
     private int gender;         // 성별 (1: 남자, 2: 여자)
     private String loginId;     // 유저가 사용할 아이디
     private String password;    // 비밀번호
     private String phoneNumber; // 전화번호
     private String email;       // 이메일
+
     private String role;        // 권한 (user, admin, ...)
+
+
 
     // User : Board = 1 : N
     @OneToMany(mappedBy = "user")
@@ -40,5 +46,15 @@ public class User {
     // User : Notification = 1 : N
     @OneToMany(mappedBy = "user")
     private List<Notification> notifications = new ArrayList<>();
+
+    @Builder
+    public User(String name,String loginId,String password,String phoneNumber,String email,String birth){
+        this.name=name;
+        this.loginId=loginId;
+        this.password=password;
+        this.phoneNumber=phoneNumber;
+        this.email=email;
+        this.birth=birth;
+    }
 
 }

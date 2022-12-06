@@ -2,17 +2,15 @@
     <link href="/css/signuppage.css" rel="stylesheet">
 <br>
 <div>
-    <form action="#">
+    <form  action="/create" method="post" >
       <h1>회원 가입</h1>
 
+      <input type="text" name="name" placeholder="이름" />
 
-      <input type="text" placeholder="이름" />
 
-      <div class="birth">
-      <input class="birth_inp" type="text" placeholder="출생년도" />
-      <input class="birth_inp" type="text" placeholder="월" />
-      <input class="birth_inp" type="text" placeholder="일" />
-      </div>
+      <input class="birth_inp" type="text" name="birth" placeholder="출생년도 ex)981001" />
+
+       {{!주석
       <div class="radio_box">
         <p>성별</p>
         <input class="radio_inp" type="radio" name="gender" id="male"/>
@@ -22,13 +20,15 @@
         <input class="radio_inp"  type="radio" name="gender" id="none"/>
         <p>기타</p>
       </div>
-      <input type="text" placeholder="아이디" />
-      <input type="password" placeholder="비밀번호" />
+         }}
+
+      <input type="text" name="loginId" placeholder="아이디" />
+      <input type="password" name="password" placeholder="비밀번호" />
       <input type="password" placeholder="비밀번호 확인" />
-      <input type="text" placeholder="전화번호" />
+      <input type="text" name="phoneNumber" placeholder="전화번호" />
 
       <div class="check">
-        <input class="birth_inp" type="email"  placeholder="이메일" />
+        <input class="birth_inp" type="email" name="email" placeholder="이메일" />
         <button type="button" class="btn btn-secondary btn-sm ">인증번호
          전송</button>
       </div>
@@ -38,9 +38,13 @@
         <button type="button" class="btn btn-secondary btn-sm ">인증번호 확인</button>
       </div>
 
-        <div class="signup_btn">
-            <a href="main" class="signup_btn">가입하기</a>
+        {{!주석
+        <div class="signup_btn" >
+            <a href="main" type="submit" class="signup_btn">가입하기</a>
         </div>
+        }}
+
+        <button  type="submit"> 가입하기 </button>
 
         <div class="bottomText">
             이미 계정이 있으신가요? <a href="login">로그인 하기</a>
