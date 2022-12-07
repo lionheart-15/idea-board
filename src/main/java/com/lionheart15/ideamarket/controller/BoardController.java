@@ -56,54 +56,19 @@ public class BoardController {
     @GetMapping("/edit/{id}")
     public String boardEdit(@PathVariable Long id, Model model) {
         Optional<Board> optionalBoard = Optional.ofNullable(boardService.boardView(id));
-        if (!optionalBoard.isEmpty()) {
-            model.addAttribute("board", optionalBoard.get());
-            return "edit";
-        } else {
-            model.addAttribute("message", String.format("%d가 없습니다.", id));
-        } return "error"; // 만듦... message를 mustache에서 부르는 방법 아시는 분?
-
+        model.addAttribute("board", optionalBoard.get());
+        return "edit";
     }
 
-    @PutMapping("/update/{id}")
-    public String boardUpdate(BoardDto boardDto) {
-//        Board boardTemp = boardService.boardView(id);
-//        boardTemp.setTitle(board.getTitle());
-//        boardTemp.setTitle(board.getContent());
-        boardService.savePost(boardDto);
-        return "redirect:/board/list"; // 왜 여기로 아기 않는가...에 대한 고찰
+    @PostMapping("/update/{id}")
+    public String boardUpdate(@PathVariable Long id, Board board) {
+        // 기존의 글
+        Board boardTemp = boardService.boardView(id);
+        // 덮어 쓰기
+        boardTemp.setTitle(board.getTitle());
+        boardTemp.setContent(board.getContent());
+        boardService.save(boardTemp);
+
+        return "redirect:/boards/view/{id}";
     }
-
-    // 파일 넣기
-
-
-
-    // edit
-//    @GetMapping("{id}/edit")
-//    public String edit(@PathVariable Long id, Model model) {
-//        Optional<Board> optBoard = boardRepository.findById(id);
-//        if (!optBoard.isEmpty()) {
-//            model.addAttribute("board", optBoard.get());
-//            return "edit";
-//        } else {
-//            model.addAttribute("message", String.format("%d가 없습니다", id));
-//            return "error";
-//        }
-//
-//    }
-//
-//    @PostMapping("/{id}/update")
-//    public String  update(@PathVariable Long id, BoardDto boardDto, Model model) {
-//        Board board = boardRepository.save(boardDto.toEntity());
-//        model.addAttribute("board", board);
-//        return String.format("redirect:/boards/%d",board.getId());
-//    }
-//
-//    @PostMapping("/{id}/delete")
-//    public String delete(@PathVariable Long id, BoardDto boardDto) {
-//        boardRepository.deleteById(id);
-//        return "redirect:";
-//    }
-
-
 }
