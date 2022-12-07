@@ -1,19 +1,31 @@
 {{>layouts/header}}
 <br>
 <div>
-    <form action="/list" method="get" class="row">
+    <form action="/boards/{{category}}" method="get" class="row">
         <div class="offset-1 col-3">
-            <h3>1번 카테고리 이름</h3>
+            <h3>{{category}}</h3>
+            <h5>검색개수 : {{searchCount}}</h5>
         </div>
-        <div class="offset-4 col-3 text-end">
-            <input type="text" name="keyword" style="width: 250px">
-            <button type="submit" class="btn btn-primary">검색</button>
+        <div class="offset-3 col-4 text-end">
+            <div class="mb-3">
+                <select name="searchOption" style="width: 80px; height: 30px; text-align: center">
+                    <option value="title">제목</option>
+                    <option value="userName">작성자</option>
+                </select>
+                {{#keyword}}
+                    <input type="text" name="keyword" style="width: 250px" value="{{keyword}}">
+                {{/keyword}}
+                {{^keyword}}
+                    <input type="text" name="keyword" style="width: 250px">
+                {{/keyword}}
+                <button type="submit" class="btn btn-primary" style="margin-top: 0px;">검색</button>
+            </div>
         </div>
     </form>
 </div>
 <div class="row">
     <div class="offset-1 col-10">
-        <table class="table text-center" style="margin-top: 20px; margin-bottom: 50px;">
+        <table class="table text-center">
             <thead class="table-warning">
             <tr>
                 <th class="col-md-1">Id</th>
@@ -25,32 +37,43 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
+            {{#boards}}
                 <tr>
-                    <th>1</th>
-                    <td><a href="/">제목111</a></td>
-                    <td>유저1</td>
-                    <td>10</td>
-                    <td>23</td>
-                    <td>20221204</td>
+                    <th>{{id}}</th>
+                    <td><a href="/">{{title}}</a></td>
+                    <td>{{userName}}</td>
+                    <td>{{commentCount}}</td>
+                    <td>{{goodCount}}</td>
+                    <td>{{createdAt}}</td>
                 </tr>
-                <tr><th>2</th><td><a href="/">제목2</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
-                <tr><th>3</th><td><a href="/">제목3</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
-                <tr><th>4</th><td><a href="/">제목4</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
-                <tr><th>5</th><td><a href="/">제목5</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
-                <tr><th>6</th><td><a href="/">제목6</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
-                <tr><th>7</th><td><a href="/">제목7</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
-                <tr><th>8</th><td><a href="/">제목8</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
-                <tr><th>9</th><td><a href="/">제목9</a></td><td>유저</td><td>3</td><td>7</td><td>20221203</td></tr>
-                <tr><th>10</th><td><a href="/">제목10</a></td><td>유저10</td><td>10</td><td>23</td><td>20221204</td></tr>
+            {{/boards}}
             </tbody>
         </table>
     </div>
-    <div class="offset-4 col-4 text-center">
-        <button class="btn btn-primary">이전페이지</button>
-        <button class="btn btn-primary">다음페이지</button>
-    </div>
-    <div class="col-3 text-end">
-        <button class="btn btn-danger">글 작성</button>
+    <div>
+        <ul class="pagination justify-content-center">
+            <!-- keyword가 존재하면 => 검색 o -->
+            {{#keyword}}
+                <li class="page-item">
+                    <a class="page-link" href="?searchOption={{searchOption}}&keyword={{keyword}}&page={{previous}}">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?searchOption={{searchOption}}&keyword={{keyword}}&page={{next}}">Next</a>
+                </li>
+            {{/keyword}}
+            <!-- keyword가 존재하지 않으면 => 검색 x -->
+            {{^keyword}}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{previous}}">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{next}}">Next</a>
+                </li>
+            {{/keyword}}
+        </ul>
+        <div class="col-3 text-end">
+            <button class="btn btn-danger">글 작성</button>
+        </div>
     </div>
 </div>
 {{>layouts/footer}}
