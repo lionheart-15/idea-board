@@ -27,11 +27,11 @@ public class UserSignUpDto {
     private String phoneNumber;
     private String email;
     private String birth;
-    private String role;
+
     private int gender;
 
 
     public User toEntity(){
-        return new User(name,email,gender,birth,loginId,password,phoneNumber,role);
+        return new User(name,email,gender,birth,loginId,password,phoneNumber);
     }
 }
