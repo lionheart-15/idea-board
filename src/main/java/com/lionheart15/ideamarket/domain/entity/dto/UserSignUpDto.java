@@ -32,6 +32,6 @@ public class UserSignUpDto {
 
 
     public User toEntity(){
-        return new User(name,birth,loginId,password,phoneNumber,email,role,gender);
+        return new User(name,email,gender,birth,loginId,password,phoneNumber,role);
     }
 }
