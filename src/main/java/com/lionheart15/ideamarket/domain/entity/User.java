@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Setter
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +22,7 @@ public class User {
     private String name;        // 이름 (본명)
 
     private String birth;       // 생년월일 (YYYYMMDD)
-    private int gender;         // 성별 (1: 남자, 2: 여자)
+    private int gender;         // 성별 (1: 남자, 2: 여자 3: 기타)
     private String loginId;     // 유저가 사용할 아이디
     private String password;    // 비밀번호
     private String phoneNumber; // 전화번호
@@ -48,13 +49,15 @@ public class User {
     private List<Notification> notifications = new ArrayList<>();
 
     @Builder
-    public User(String name,String loginId,String password,String phoneNumber,String email,String birth){
+    public User(String name,String loginId,String password,String phoneNumber,String email,String birth,String role,int gender){
         this.name=name;
         this.loginId=loginId;
         this.password=password;
         this.phoneNumber=phoneNumber;
         this.email=email;
         this.birth=birth;
+        this.role=role;
+        this.gender=gender;
     }
 
 }

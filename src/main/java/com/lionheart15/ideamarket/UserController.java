@@ -25,6 +25,7 @@ public class UserController {
         log.info(dto.toString());
 
         User user = dto.toEntity();
+        user.setRole("user");
         log.info(user.toString());
 
         User savedUser = userRepository.save(user);

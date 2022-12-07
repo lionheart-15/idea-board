@@ -11,13 +11,14 @@ import javax.persistence.Id;
 public class UserSignUpDto {
 
 
-    public UserSignUpDto(String name, String loginId, String password, String phoneNumber, String email, String birth) {
+    public UserSignUpDto(String name, String loginId, String password, String phoneNumber, String email, String birth,int gender) {
         this.name = name;
         this.loginId = loginId;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.birth = birth;
+        this.gender=gender;
     }
 
     private String name;
@@ -26,9 +27,11 @@ public class UserSignUpDto {
     private String phoneNumber;
     private String email;
     private String birth;
+    private String role;
+    private int gender;
 
 
     public User toEntity(){
-        return new User(name,birth,loginId,password,phoneNumber,email);
+        return new User(name,birth,loginId,password,phoneNumber,email,role,gender);
     }
 }
