@@ -13,6 +13,11 @@ import java.util.Optional;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board,Long> {
+
+    Page<Board> findByCategory(String category, Pageable pageable);
+    Page<Board> findByCategoryAndTitleContains(String category, String title, Pageable pageable);
+    Page<Board> findByCategoryAndUserNameContains(String category, String username, Pageable pageable);
+
     @Query(value = "select b from Board b order by b.goods.size DESC")
     Page<Board> popularList(Pageable pageable);
 }

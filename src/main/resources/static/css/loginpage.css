@@ -22,16 +22,63 @@ a {
     text-decoration: none;
     margin: 15px 0;
 }
-button {
-    border-radius: 20px;
-    border: 1px solid #2b67ff;
-    background-color: #2b67ff;
-    color: #FFFFFF;
-    font-size: 15px;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    margin-top: 5px;
+/*로그인 회원가입 버튼*/
+.login_btn{
+    border: 1px solid lightskyblue;
+    font-size: 13px;
+    color: #000;
+    line-height: 38px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: lightskyblue;
+    display: inline-block;
+    vertical-align: center;
+    border-radius: 5px;
+    margin-left: 15px;
+    padding: 5px 5px;
+    display:block;
+    margin: 8px 0;
+    height: 40px;
+    width: 400px;
 }
+
+.kakao_btn{
+    display:block;
+    margin: 8px 0;
+    height: 40px;
+    width: 400px;
+}
+
+/*아이디찾기 비밀번호 찾기*/
+.bottomText{
+    text-align: center;
+    color: grey;
+}
+.bottomText > a{
+    color: grey;
+    display: inline-block;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    overflow: hidden;
+}
+.bottomText > a:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    background: lightskyblue;
+    height: 2px;
+    transition-property: right;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+.bottomText > a:hover:before, .bottomText > a:focus:before, .bottomText > a:active:before {
+    right: 0;
+}
+
 form {
     background-color: #FFFFFF;
     display: flex;
@@ -49,7 +96,7 @@ input {
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
-    width: 100%;
+    width: 400px;
 }
 
 
