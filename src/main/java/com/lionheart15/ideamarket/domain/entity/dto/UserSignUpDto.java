@@ -2,24 +2,18 @@ package com.lionheart15.ideamarket.domain.entity.dto;
 
 import com.lionheart15.ideamarket.domain.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Id;
 
 
+@AllArgsConstructor
 @ToString
+@Setter
+@Getter
 public class UserSignUpDto {
-
-
-    public UserSignUpDto(String name, String loginId, String password, String phoneNumber, String email, String birth,int gender) {
-        this.name = name;
-        this.loginId = loginId;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.birth = birth;
-        this.gender=gender;
-    }
 
     private String name;
     private String loginId;
@@ -27,11 +21,6 @@ public class UserSignUpDto {
     private String phoneNumber;
     private String email;
     private String birth;
-
     private int gender;
 
-
-    public User toEntity(){
-        return new User(name,email,gender,birth,loginId,password,phoneNumber);
-    }
 }

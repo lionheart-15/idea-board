@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    //db에 저장하고 꺼내오기 위한 repo
+
 }

@@ -1,5 +1,7 @@
 package com.lionheart15.ideamarket.domain.entity;
 
+import com.lionheart15.ideamarket.domain.entity.dto.UserSignUpDto;
+import com.lionheart15.ideamarket.service.UserService;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -48,15 +50,5 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Notification> notifications = new ArrayList<>();
 
-    @Builder
-    public User(String name,String email,int gender,String birth,String loginId,String password,String phoneNumber){
-        this.name=name;
-        this.loginId=loginId;
-        this.password=password;
-        this.phoneNumber=phoneNumber;
-        this.email=email;
-        this.birth=birth;
-        this.gender=gender;
-    }
 
 }
