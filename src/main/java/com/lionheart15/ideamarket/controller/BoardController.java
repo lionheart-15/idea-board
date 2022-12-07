@@ -1,5 +1,6 @@
 package com.lionheart15.ideamarket.controller;
 
+import com.lionheart15.ideamarket.domain.dto.BoardDto;
 import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
 import com.lionheart15.ideamarket.domain.entity.Board;
 import com.lionheart15.ideamarket.repository.BoardRepository;
@@ -12,14 +13,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -60,5 +59,55 @@ public class BoardController {
         return "list";
     }
 
-}
+    // list
+    @GetMapping("/list")
+    public String boardList() {
+        return "list";
+    }
 
+    // view
+    @GetMapping("/view/{id}")
+    public String boardView(Model model, @PathVariable Long id) {
+        model.addAttribute("board", boardService.boardView(id));
+        return "detail";
+    }
+
+    // write
+    @GetMapping("/write")
+    public String createBoard() {
+        return "writer";
+    }
+
+    @PostMapping("/create_post")
+    public String boardWrite(Board board) {
+        boardService.write(board);
+        return "redirect:/boards/view/" + board.getId();
+    }
+
+    // delete
+    @GetMapping("/delete/{id}")
+    public String boardDelete(@PathVariable Long id) {
+        boardService.boardDelete(id);
+        return "redirect:/boards/list";
+    }
+
+    // edit
+    @GetMapping("/edit/{id}")
+    public String boardEdit(@PathVariable Long id, Model model) {
+        Optional<Board> optionalBoard = Optional.ofNullable(boardService.boardView(id));
+        model.addAttribute("board", optionalBoard.get());
+        return "edit";
+    }
+
+    @PostMapping("/update/{id}")
+    public String boardUpdate(@PathVariable Long id, Board board) {
+        // 기존의 글
+        Board boardTemp = boardService.boardView(id);
+        // 덮어 쓰기
+        boardTemp.setTitle(board.getTitle());
+        boardTemp.setContent(board.getContent());
+        boardService.save(boardTemp);
+
+        return "redirect:/boards/view/{id}";
+    }
+}

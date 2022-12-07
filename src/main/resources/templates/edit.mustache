@@ -1,25 +1,25 @@
 {{>layouts/header}}
 <br>
 <div class="container text-center">
-    <form method="post" action="/update/{id}">
+<!--    form-->
+    <form method="post" action="/boards/update/{{board.id}}">
         <table class="table table-striped" style="text-align: center; border: solid 1px #dddddd">
             <thead>
             <tr>
-                <th style="text-align: center;">게시판 글 수정 양식</th>
+                <th style="text-align: center;">게시판 글쓰기 양식</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>
                     <div class="input-group mb-1">
-                        <!--title 라인 밖에 글이 적히는 문제 발생-->
                         <input type="text" class="form-control" placeholder="글 제목" name="title" value="{{board.title}}">
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <textarea class="form-control" style="height: 500px"  placeholder="글 내용" name="content" >{{board.content}}</textarea>
+                    <textarea class="form-control" style="height: 350px"  placeholder="글 내용" name="content">{{board.content}}</textarea>
                 </td>
             </tr>
             <tr>

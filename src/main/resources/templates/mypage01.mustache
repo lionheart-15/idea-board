@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+    <!-- Bootstrap 5.2.3 Version -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"
+</head>
+<body>
+<!-- Bootstrap 5.2.3 Version -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-expand-lg" style="background-color: lightskyblue">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Idea-Market</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav" style="padding: 5px 30px">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        카테고리
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/">카테고리1</a></li>
+                        <li><a class="dropdown-item" href="/">카테고리2</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">공지사항</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">고객센터</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <p class="user" style="width: 150px">ooo님의 마이페이지</p>
+                </li>
+                <li class="mypage-config mr-3">
+                    <a class="logout ml-auto">개인정보수정</a>
+                </li>
+                <li class="logout">
+                    <a class="logout ml-auto">로그아웃</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="accordion py-5" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                내가 작성한 글
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <!-- 리스트 -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">글 제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">작성된 시간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>가입인사 합니다.</td>
+                        <td>멋쟁이 호랑이 신사</td>
+                        <td>2022.11.11</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>등업 신청</td>
+                        <td>멋쟁이 호랑이 신사</td>
+                        <td>2022.11.22</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>맛집 알려주세요</td>
+                        <td>멋쟁이 호랑이 신사</td>
+                        <td>2022.11.30</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 페이징 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                내가 작성한 댓글
+            </button>
+        </h2>
+
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <!-- 리스트 -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">댓글 내용</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">작성된 시간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>저도 잘 부탁드려요.</td>
+                        <td>멋쟁이 호랑이 신사</td>
+                        <td>2022.11.11</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>ㄹㅇㅋㅋ</td>
+                        <td>멋쟁이 호랑이 신사</td>
+                        <td>2022.11.22</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>감사합니다!</td>
+                        <td>멋쟁이 호랑이 신사</td>
+                        <td>2022.11.30</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 페이징 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                내가 좋아요한 글
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <!-- 리스트 -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">글 제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">작성된 시간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>공지사항</td>
+                        <td>관리자</td>
+                        <td>2022.05.20</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>맛집 추천 해드립니다 zip</td>
+                        <td>오이토박이</td>
+                        <td>2022.11.03</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>우리집 강아지 보세요</td>
+                        <td>요고로토</td>
+                        <td>2022.12.04</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 페이징 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{{>layouts/footer}}
