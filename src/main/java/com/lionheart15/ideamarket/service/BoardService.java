@@ -27,6 +27,7 @@ public class BoardService {
         return boardRepository.findById(id).get(); // id를 통해서 모든 칼럼을 가져온다.
     }
 
+    // 이거 좀 수정..
     public void savePost(BoardDto boardDto) {
         boardRepository.save(boardDto.toEntity());
     }

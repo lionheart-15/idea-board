@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-// 게시글 작성 화면 보여주는 메서드
-// 게시글을 등록하는 메서드
 @Controller
 @RequestMapping("/boards")
 @Slf4j
