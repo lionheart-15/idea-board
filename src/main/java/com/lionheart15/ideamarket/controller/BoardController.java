@@ -1,9 +1,7 @@
 package com.lionheart15.ideamarket.controller;
 
-import com.lionheart15.ideamarket.domain.dto.BoardDto;
 import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
 import com.lionheart15.ideamarket.domain.entity.Board;
-import com.lionheart15.ideamarket.repository.BoardRepository;
 import com.lionheart15.ideamarket.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Optional;

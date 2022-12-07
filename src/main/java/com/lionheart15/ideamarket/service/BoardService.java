@@ -1,17 +1,11 @@
 package com.lionheart15.ideamarket.service;
 
-import com.lionheart15.ideamarket.domain.dto.BoardDto;
-import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
 import com.lionheart15.ideamarket.domain.entity.Board;
 import com.lionheart15.ideamarket.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
