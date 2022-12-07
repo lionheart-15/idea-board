@@ -23,37 +23,30 @@ a {
     margin: 15px 0;
 }
 /*로그인 회원가입 버튼*/
-.btn{
+.login_btn{
     border: 1px solid lightskyblue;
     font-size: 13px;
     color: #000;
     line-height: 38px;
     box-sizing: border-box;
     text-align: center;
-    background-color: #fff;
+    background-color: lightskyblue;
     display: inline-block;
     vertical-align: center;
     border-radius: 5px;
     margin-left: 15px;
     padding: 5px 5px;
-}
-
-.login_btn>a{
     display:block;
     margin: 8px 0;
     height: 40px;
     width: 400px;
 }
+
 .kakao_btn{
     display:block;
     margin: 8px 0;
     height: 40px;
     width: 400px;
-}
-
-.login_btn >a:hover{
-    background-color: lightskyblue;
-    color: white;
 }
 
 /*아이디찾기 비밀번호 찾기*/

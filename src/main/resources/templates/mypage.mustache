@@ -1,5 +1,6 @@
 <!--로그인 했을 때-->
-{{#loginfo}}
+{{#loginInfo}}
+    {{>layouts/header}}
     <nav class="navbar navbar-expand-lg" style="background-color: lightskyblue">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Idea-Board</a>
@@ -227,13 +228,13 @@
     </div>
     </div>
     {{>layouts/footer}}
-{{/loginfo}}
+{{/loginInfo}}
 
 <!--로그인하지 않았을 때-->
-{{^loginfo}}
+{{^loginInfo}}
     {{>layouts/header}}
     <div class="alert alert-secondary mt-3" role="alert">
         로그인 후 이용이 가능합니다.
     </div>
     {{>layouts/footer}}
-{{/loginfo}}
+{{/loginInfo}}
