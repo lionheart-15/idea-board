@@ -9,9 +9,9 @@ spring:
   # DB 연결 정보
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://<host>:3306/idea-market
+    url: jdbc:mysql://localhost:3306/idea-market
     username: root
-    password: <host>
+    password: root1234
 
   # JPA 설정
   jpa:
@@ -19,4 +19,4 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     database: mysql
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
