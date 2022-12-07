@@ -46,7 +46,7 @@ public class BoardController {
     }
 
     // delete
-    @GetMapping("/delete/{id}") // 이게.. 되네? 아직 삭제 버튼을 누르는 것은 구현하지 않았다.
+    @GetMapping("/delete/{id}")
     public String boardDelete(@PathVariable Long id) {
         boardService.boardDelete(id);
         return "redirect:/boards/list";

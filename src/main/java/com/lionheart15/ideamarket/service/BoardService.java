@@ -26,7 +26,7 @@ public class BoardService {
 
     // 특정 게시글 view
     public Board boardView(Long id) {
-        return boardRepository.findById(id).get(); // id를 통해서 모든 칼럼을 가져온다.
+        return boardRepository.findById(id).get();
     }
 
     public Board save(Board board) {
