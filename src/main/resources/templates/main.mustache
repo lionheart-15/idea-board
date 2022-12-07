@@ -19,14 +19,16 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
+            {{#list}}
                 <tr>
-                    <th>1</th>
-                    <td><a href="/">제목111</a></td>
-                    <td>10</td>
+                    <th>{{id}}</th>
+                    <td><a href="/">{{content}}</a></td>
+                    <td>2</td>
                     <td>유저1</td>
                     <td>23</td>
                     <td>20221204</td>
                 </tr>
+            {{/list}}
             </tbody>
         </table>
     </div>
