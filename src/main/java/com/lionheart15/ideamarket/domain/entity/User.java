@@ -49,7 +49,7 @@ public class User {
     private List<Notification> notifications = new ArrayList<>();
 
     @Builder
-    public User(String name,String loginId,String password,String phoneNumber,String email,String birth,String role,int gender){
+    public User(String name,String email,int gender,String birth,String loginId,String password,String phoneNumber,String role){
         this.name=name;
         this.loginId=loginId;
         this.password=password;
