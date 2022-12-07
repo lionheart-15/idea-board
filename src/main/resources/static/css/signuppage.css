@@ -103,3 +103,62 @@ input {
     margin:0;
     width: 5%;
 }
+
+li{
+    list-style: none;
+}
+
+.bottomText{
+    text-align: center;
+    color: grey;
+}
+.bottomText > a{
+    color: grey;
+    display: inline-block;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    overflow: hidden;
+}
+.bottomText > a:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    background: lightskyblue;
+    height: 2px;
+    transition-property: right;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+.bottomText > a:hover:before, .bottomText > a:focus:before, .bottomText > a:active:before {
+    right: 0;
+}
+
+.signup_btn{
+    font-size: 13px;
+    color: #000;
+    line-height: 38px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fff;
+    display: inline-block;
+    vertical-align: center;
+    margin-left: 15px;
+    height: 40px;
+    padding: 0 13px;
+    border-radius: 20px;
+}
+.signup_btn>a{
+    border: 1px solid lightskyblue;
+    display:block;
+    margin: 8px 0;
+    height: 40px;
+    width: 400px;
+}
+.signup_btn>a:hover{
+    background-color: lightskyblue;
+    color: white;
+}

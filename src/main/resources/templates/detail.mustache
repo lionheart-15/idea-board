@@ -5,10 +5,11 @@
 
 <div id="all">
     <div class="container">
-        <div class="detailbtn" class="btn">
+        <div class="detailbtn btn">
 <!--            href-->
             <a href="/boards/delete/{{board.id}}" class="btn btn-primary">삭제</a>
             <a href="/boards/edit/{{board.id}}" class="btn btn-primary">수정</a>
+
         </div>
                 <ul>
 <!--                    css가 풀린 부분-->
@@ -35,6 +36,7 @@
         </div>
         <div style="display: inline-block">
             <a id="next" class="btn btn-secondary" href="">다음 글</a>
+            <a id="back" class="btn btn-secondary" href="list">뒤로 가기</a>
         </div>
     </div>
 
@@ -55,14 +57,14 @@
 
                 <li>
                     <ul class="row2" style="-webkit-padding-start:0px;">
-                        <li><textarea name="content" rows="10" cols="50"
+                        <li><textarea name="content" rows="3" cols="50"
                                       placeholder="댓글을 작성하세요." class="input2" ></textarea></li>
                     </ul>
                 </li>
 
-                <div class="commnetbtn" class="btn">
-                    <a href="/comments/" class="btn btn-primary">저장</a>
-                    <a href="/comments/" class="btn btn-primary">취소</a>
+                <div class="comment_btn">
+                    <a href="/comments/" class="comment_btn" class="btn btn-primary">저장</a>
+                    <a href="/comments/" class="comment_btn" class="btn btn-primary">취소</a>
                 </div>
             </ul>
 
@@ -76,9 +78,9 @@
                     <li class="comment_id">댓글 작성자 id</li>
                     <li class="comment">댓글 내용</li>
 
-            <div class="commnetbtn" class="btn">
-                <a href="/comments/" class="btn btn-primary">수정</a>
-                <a href="/comments/" class="btn btn-primary">삭제</a>
+            <div class="comment_btn">
+                <a href="/comments/" class="comment_btn" class="btn btn-primary">수정</a>
+                <a href="/comments/" class="comment_btn" class="btn btn-primary">삭제</a>
             </div>
 
         </ul>

@@ -16,11 +16,10 @@ li{
     margin-right: 100px;
 }
 
-.btn{
+.detail_btn{
     height: 40px;
     padding: 0 13px;
     border-radius: 20px;
-    border: 1px solid lightskyblue;
     font-size: 13px;
     color: #000;
     line-height: 38px;
@@ -31,23 +30,43 @@ li{
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 30px;
-}
-
-.detailbtn {
     margin-top: 10px;
     text-align: center;
 }
 
-.detailbtn>a {
+.detail_btn>a {
+    border: 1px solid lightskyblue;
     float: right;
 }
 
-.detailbtn >a:hover {
+.detail_btn >a:hover {
     background-color: lightskyblue;
     color: white;
 }
 
-.commnetbtn >a:hover {
+.comment_btn{
+    height: 40px;
+    padding: 0 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #000;
+    line-height: 38px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fff;
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.comment_btn>a{
+    border: 1px solid lightskyblue;
+}
+
+.comment_btn >a:hover {
     background-color: lightskyblue;
     color: white;
 }
