@@ -7,7 +7,13 @@ import com.lionheart15.ideamarket.repository.BoardRepository;
 import com.lionheart15.ideamarket.repository.GoodRepository;
 import com.lionheart15.ideamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -19,6 +25,17 @@ public class GoodService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
+    public Page<Board> printPopularList(Pageable pageable){
+        Page<Board> boardList = boardRepository.popularList(pageable);
+        return boardList;
+    }
+//    !!!!페이지 컨트롤러 추가사항!!!!
+//    @GetMapping("/popular")
+//    public String popularPrint(Model model, @PageableDefault(page=1, size=10) Pageable pageable){
+//        Page<Board> boardPage = goodService.printPopularList(pageable);
+//        model.addAttribute("list", boardPage);
+//        return "main";
+//    }
 
     public void like(User user, Board board){
         Good good = Good.builder()
@@ -77,43 +94,17 @@ public class GoodService {
     //value 값 '내림차순'정렬 한 후 list로 저장
     //해당 리스트를 10개까지 조회 후 데이터 리스트 저장
     //저장된 리스트 반환
-    public List<Board> findBy(){
-        HashMap<Long,Integer> map = new HashMap<>();
-        List<Good> list = goodRepository.findAll();
-        for(int i=0;i<list.size();i++){
-            Board board = list.get(i).getBoard();
-            Long boardId = board.getId();
-            if(!map.containsKey(boardId)){
-                map.put(boardId,1);
-            }else {
-                map.put(boardId, map.get(boardId) + 1);
-            }
-        }
-        List<Map.Entry<Long, Integer>> entryList = new LinkedList<>(map.entrySet());
-        entryList.sort(new Comparator<Map.Entry<Long, Integer>>() {
-            @Override
-            public int compare(Map.Entry<Long, Integer> o1, Map.Entry<Long, Integer> o2) {
-                return o2.getValue() - o1.getValue();
-            }
-        });
 
-        for(Map.Entry<Long,Integer> entry : entryList){
-            System.out.println("key : " + entry.getKey() + " value : " + entry.getValue());
-        }
+    // 피드백) JPA 활용하기
+    // @Query(value = "select b from Board b order by b.goods.size desc")
+    // List<Board> findBest(Pageable pageable);
+    // 페이징처리 완료
 
+    // 제약사항
+    // 1. jpql 은 limit 기능 미구현으로 사용 불가
+    // 2. 레거시쿼리 사용할려했으나 조인문제로 실패
+    // 3. 페이징기법 사용하려했으나 findAll 메소드 관련해서 실패
 
-        List<Board> boardList = new ArrayList<>();
-
-        for(int i = 0 ;i<10;i++){
-            Optional<Board> optionalBoard = boardRepository.findById(entryList.get(i).getKey());
-            if(optionalBoard.isEmpty()){
-                continue;
-            }else{
-                boardList.add(optionalBoard.get());
-            }
-        }
-        return boardList;
-    }
 
 
 }
