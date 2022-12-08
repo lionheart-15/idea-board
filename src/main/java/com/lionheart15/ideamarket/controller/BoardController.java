@@ -3,6 +3,7 @@ package com.lionheart15.ideamarket.controller;
 import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
 import com.lionheart15.ideamarket.domain.entity.Board;
 import com.lionheart15.ideamarket.service.BoardService;
+import com.lionheart15.ideamarket.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Optional;
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class BoardController {
 
     private final BoardService boardService;
+    private final UserService userService;
 
     @GetMapping("/{category}")
     public String boardList(@PathVariable String category, Model model,
@@ -77,6 +80,9 @@ public class BoardController {
 
     @PostMapping("/create_post")
     public String boardWrite(Board board) {
+        board.setCategory("일반게시판");
+        board.setUser(userService.findById(1L));
+        board.setCreatedAt(LocalDateTime.now());
         boardService.write(board);
         return "redirect:/boards/view/" + board.getId();
     }
