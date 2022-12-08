@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -14,9 +15,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
+    @Transactional(readOnly = true)
+    public boolean checkUsernameDuplication(String loginId) {
+        boolean usernameDuplicate = userRepository.existsByLoginId(loginId);
+        return usernameDuplicate;
+    }
     public User save(String birth,String email,int gender,String loginId,String name,String password,String phoneNumber) {
-        //dto -> entity로 변경해야함
-
         User user = User.builder()
                 .birth(birth)
                 .email(email)
@@ -27,7 +31,6 @@ public class UserService {
                 .phoneNumber(phoneNumber)
                 .role("user")
                 .build();
-
 
         userRepository.save(user);
         return user;

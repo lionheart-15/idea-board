@@ -8,7 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -38,7 +42,13 @@ public class UserController {
 //        return "main";
 //    }
     @PostMapping("/create")
-    public  String create(UserSignUpDto dto){
+    public  String create(@ModelAttribute UserSignUpDto dto ){
+
+       if(userRepository.existsByLoginId(dto.getLoginId())){
+
+           return "iddup";
+       }
+
         userService.save(dto.getBirth(), dto.getEmail(), dto.getGender(),dto.getLoginId(),dto.getName(),dto.getPassword(),dto.getPhoneNumber());
 
         return"login";
