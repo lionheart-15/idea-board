@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class PageController {
 
-    @GetMapping(value = {"/hello", "", "/"})
+    @GetMapping("/hello")
     public String hello() {
         return "hello";
     }
