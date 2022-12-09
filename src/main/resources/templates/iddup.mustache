@@ -1,14 +1,25 @@
 {{>layouts/header}}
     <link href="/css/signuppage.css" rel="stylesheet">
+    <script>
+      alert("아이디가 중복됩니다.");
+            function check_pw(){
+                if(document.getElementById('pw').value !='' && document.getElementById('pw2').value!=''){
+                    if(document.getElementById('pw').value==document.getElementById('pw2').value){
+                        document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
+                        document.getElementById('check').style.color='blue';
+                    }
+                    else{
+                        document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
+                        document.getElementById('check').style.color='red';
+                    }
+                }
+            }
+        </script>
 <br>
 <div>
     <form  action="/create" method="post" >
       <h1>회원 가입</h1>
-<script type="text/javascript">
 
-  alert("아이디가 중복됩니다.");
-
-</script>
       <input type="text" name="name" placeholder="이름" "required/>
 
 
@@ -27,8 +38,9 @@
 
 
       <input type="text" name="loginId" placeholder="아이디" required/>
-      <input type="password" name="password" placeholder="비밀번호" required/>
-      <input type="password" placeholder="비밀번호 확인" required />
+      <input type="password" name="password" placeholder="비밀번호" id="pw"  required/>
+      <input type="password" placeholder="비밀번호 확인" id="pw2" onchange="check_pw()"  required />
+      <span id="check"></span>
       <input type="text" name="phoneNumber" placeholder="전화번호" required/>
 
       <div class="check">
