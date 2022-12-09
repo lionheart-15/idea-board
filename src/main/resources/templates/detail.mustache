@@ -1,21 +1,20 @@
 {{>layouts/header}}
 <br>
-
-        <link rel="stylesheet" href="css/detail.css">
-
+    <link rel="stylesheet" href="css/detail.css">
 <div id="all">
+    {{#board}}
     <div class="container">
 
-        <div class="detail_btn">
+        <div class="detail_btn" style="float: right">
             <a href="/contents/" class="detail_btn" class="btn btn-primary">삭제</a>
             <a href="/contents/" class="detail_btn" class="btn btn-primary">수정</a>
         </div>
                 <ul>
                     <li><input class="id" type="hidden" name="id"></li>
 
-                    <li><h2 class="title">제목</h2></li>
+                    <li><h2 class="title">제목 : {{board.title}}</h2></li>
                     <li><h5 class="userId">작성자</h5></li>
-                    <li><pre class="content">내용</pre></li>
+                    <li><pre class="content">내용 : {{board.content}}</pre></li>
                     <img src="images" onerror="this.style.display='none';"/>
                                                                          {{!이미지가 없을 경우 대체 이미지 숨기기}}
                     <li class="cnt">좋아요 수&nbsp;</li> <li class="cnt">조회 수 &nbsp;</li> <li style="float: right;"><h6>작성일자 : </h6></li>
@@ -26,7 +25,7 @@
 
                 </ul>
     </div>
-
+        {{/board}}
     {{! 이전 글 다음 글}}
     <div class="page-control" style="padding-left: 50px">
         <div style="display: inline-block">
@@ -61,8 +60,8 @@
                 </li>
 
                 <div class="comment_btn">
-                    <a href="/comments/" class="comment_btn" class="btn btn-primary">저장</a>
-                    <a href="/comments/" class="comment_btn" class="btn btn-primary">취소</a>
+                    <button type="submit">저장</button>
+                    <button type="reset">취소</button>
                 </div>
             </ul>
 

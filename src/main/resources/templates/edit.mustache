@@ -1,7 +1,7 @@
 {{>layouts/header}}
 <br>
 <div class="container text-center">
-    <form method="post" action="/update/{id}">
+    <form method="post" action="/boards/update/{{board.id}}">
         <table class="table table-striped" style="text-align: center; border: solid 1px #dddddd">
             <thead>
             <tr>
@@ -12,7 +12,6 @@
             <tr>
                 <td>
                     <div class="input-group mb-1">
-                        <!--title 라인 밖에 글이 적히는 문제 발생-->
                         <input type="text" class="form-control" placeholder="글 제목" name="title" value="{{board.title}}">
                     </div>
                 </td>
@@ -32,7 +31,7 @@
             </tbody>
         </table>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <input type="submit" class="btn btn-primary me-md-2" value ="글쓰기">
+            <input type="submit" class="btn btn-primary me-md-2" value ="저장">
         </div>
 
     </form>
