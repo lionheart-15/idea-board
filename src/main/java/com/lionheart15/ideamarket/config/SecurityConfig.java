@@ -42,9 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/")         // 로그인 성공 시 redirect 될 URL
                 .failureUrl("/users/login")    // 로그인 실패 시 redirect 될 URL
                 .and()
-                .logout()                       // 로그아웃
-                .logoutUrl("users/logout")      // 로그아웃이 진행될 URL (UserController에 URL 매핑해놓음)
-                .logoutSuccessUrl("/")          // 로그아웃 성공 시 redirect 될 URL
+                .logout()
+                .logoutUrl("/users/logout")
                 .invalidateHttpSession(true).deleteCookies("JSESSIONID")
         ;
 
