@@ -2,15 +2,15 @@
     <link href="/css/loginpage.css" rel="stylesheet">
 <br>
 <div>
-    <form action="#">
+    <form action="/users/login" method="post">
       <h1>로그인</h1>
-      <input type="text" placeholder="아이디" />
-      <input type="password" placeholder="비밀번호" />
+      <input type="text" name="loginId" placeholder="아이디" />
+      <input type="password" name="password" placeholder="비밀번호" />
 
-        <div class="login_btn" class="btn">
-            <a href="main" class="btn btn-primary">로그인</a>
-            <a href="signup" class="btn btn-primary">회원가입</a>
-        </div>
+
+            <button type="submit" class="login_btn">로그인</button>
+            <a href="signup" class="login_btn">회원가입</a>
+
         <a href="/login" class="kakao_btn"><img src="https://user-images.githubusercontent.com/90165539/205678202-015b52d8-0b8c-4307-990a-65cc78269e7a.png"/></a>
 
         <div class="bottomText">

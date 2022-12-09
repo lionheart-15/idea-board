@@ -1,31 +1,31 @@
 {{>layouts/header}}
 <br>
-
-        <link rel="stylesheet" href="css/detail.css">
-
+<link rel="stylesheet" href="css/detail.css">
 <div id="all">
+    {{#board}}
     <div class="container">
-        <div class="detailbtn" class="btn">
-            <a href="/contents/" class="btn btn-primary">삭제</a>
-            <a href="/contents/" class="btn btn-primary">수정</a>
+        <div class="detailbtn btn">
+            <!--href-->
+            <a href="/boards/delete/{{board.id}}" class="btn btn-primary">삭제</a>
+            <a href="/boards/edit/{{board.id}}" class="btn btn-primary">수정</a>
         </div>
-                <ul>
-                    <li><input class="id" type="hidden" name="id"></li>
+        <ul>
+            <!-- css가 풀린 부분-->
+            <li><input class="id" type="hidden" name="id"></li>
 
-                    <li><h2 class="title">제목</h2></li>
-                    <li><h5 class="userId">작성자</h5></li>
-                    <li><pre class="content">내용</pre></li>
-                    <img src="images" onerror="this.style.display='none';"/>
-                                                                         {{!이미지가 없을 경우 대체 이미지 숨기기}}
-                    <li class="cnt">좋아요 수&nbsp;</li> <li class="cnt">조회 수 &nbsp;</li> <li style="float: right;"><h6>작성일자 : </h6></li>
-                    <div>
-                        <a href="/contents/" >좋아요</a>
-                    </div>
+            <li><h2 class="title">제목 : {{board.title}}</h2></li>
+            <li><h5 class="userId">작성자</h5></li>
+            <li><pre class="content">내용 : {{board.content}}</pre></li>
+            <img src="images" onerror="this.style.display='none';"/>
+            {{!이미지가 없을 경우 대체 이미지 숨기기}}
+            <li class="cnt">좋아요 수&nbsp;</li> <li class="cnt">조회 수 &nbsp;</li> <li style="float: right;"><h6>작성일자 : </h6></li>
+            <div>
+                <a href="/contents/" >좋아요</a>
+            </div>
 
-
-                </ul>
+        </ul>
     </div>
-
+    {{/board}}
     {{! 이전 글 다음 글}}
     <div class="page-control" style="padding-left: 50px">
         <div style="display: inline-block">
@@ -33,6 +33,7 @@
         </div>
         <div style="display: inline-block">
             <a id="next" class="btn btn-secondary" href="">다음 글</a>
+            <a id="back" class="btn btn-secondary" href="list">뒤로 가기</a>
         </div>
     </div>
 
@@ -53,14 +54,14 @@
 
                 <li>
                     <ul class="row2" style="-webkit-padding-start:0px;">
-                        <li><textarea name="content" rows="10" cols="50"
+                        <li><textarea name="content" rows="3" cols="50"
                                       placeholder="댓글을 작성하세요." class="input2" ></textarea></li>
                     </ul>
                 </li>
 
-                <div class="commnetbtn" class="btn">
-                    <a href="/comments/" class="btn btn-primary">저장</a>
-                    <a href="/comments/" class="btn btn-primary">취소</a>
+                <div class="comment_btn">
+                    <a href="/comments/" class="comment_btn" class="btn btn-primary">저장</a>
+                    <a href="/comments/" class="comment_btn" class="btn btn-primary">취소</a>
                 </div>
             </ul>
 
@@ -74,15 +75,12 @@
                     <li class="comment_id">댓글 작성자 id</li>
                     <li class="comment">댓글 내용</li>
 
-            <div class="commnetbtn" class="btn">
-                <a href="/comments/" class="btn btn-primary">수정</a>
-                <a href="/comments/" class="btn btn-primary">삭제</a>
+            <div class="comment_btn">
+                <a href="/comments/" class="comment_btn" class="btn btn-primary">수정</a>
+                <a href="/comments/" class="comment_btn" class="btn btn-primary">삭제</a>
             </div>
 
         </ul>
-
-
-
 
 </div>
 <br>

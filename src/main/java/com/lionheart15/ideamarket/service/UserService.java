@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @Service
@@ -35,5 +37,12 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
+      
+    public User findById(Long id) {
+        return userRepository.findById(id).get();
+    }
 
+    public Optional<User> findByLoginId(String loginId) {
+        return userRepository.findByLoginId(loginId);
+    }
 }
