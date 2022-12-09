@@ -1,10 +1,8 @@
 {{>layouts/header}}
 <br>
-<link rel="stylesheet" href="css/writer.css">
-
 <div class="container text-center">
-<form method="post" action="">
-    <table class="table table-striped" style="text-align: center; border: solid 1px #dddddd; word-break : break-all ; height : auto; width: 700px">
+<form method="post" action="/boards/create_post">
+    <table class="table table-striped" style="text-align: center; border: solid 1px #dddddd">
         <thead>
         <tr>
             <th style="text-align: center;">게시판 글쓰기 양식</th>
@@ -14,13 +12,13 @@
         <tr>
         <td>
             <div class="input-group mb-1">
-            <input type="text" class="form-control" placeholder="글 제목" name="bbsTitle">
+            <input type="text" class="form-control" placeholder="글 제목" name="title">
             </div>
         </td>
         </tr>
         <tr>
             <td>
-                <textarea class="form-control" style="height: 350px"  placeholder="글 내용" name="bbsContent" ></textarea>
+                <textarea class="form-control" style="height: 350px"  placeholder="글 내용" name="content" ></textarea>
             </td>
         </tr>
         <tr>
