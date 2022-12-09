@@ -61,19 +61,13 @@ public class MakeInitData {
         boardRepository.save(board5);
 
         Good good1 = Good.builder().user(user1).board(board1).build();
-        Good good2 = Good.builder().user(user1).board(board1).build();
-        Good good3 = Good.builder().user(user1).board(board2).build();
         Good good4 = Good.builder().user(user1).board(board2).build();
         Good good5 = Good.builder().user(user1).board(board2).build();
-        Good good6 = Good.builder().user(user1).board(board3).build();
         Good good7 = Good.builder().user(user1).board(board3).build();
         Good good8 = Good.builder().user(user1).board(board4).build();
         goodRepository.save(good1);
-        goodRepository.save(good2);
-        goodRepository.save(good3);
         goodRepository.save(good4);
         goodRepository.save(good5);
-        goodRepository.save(good6);
         goodRepository.save(good7);
         goodRepository.save(good8);
 
