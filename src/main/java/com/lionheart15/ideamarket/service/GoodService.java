@@ -7,6 +7,7 @@ import com.lionheart15.ideamarket.repository.BoardRepository;
 import com.lionheart15.ideamarket.repository.GoodRepository;
 import com.lionheart15.ideamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class GoodService {
     private final BoardRepository boardRepository;
     private final GoodRepository goodRepository;
@@ -25,8 +27,8 @@ public class GoodService {
         return boardList;
     }
 
-    public void findById(Long boardId,Long userId){
-        Optional<Good> good = goodRepository.findByBoardIdAndUserId(boardId,userId);
+    public void createGood(Long boardId, Long userId){
+        Optional<Good> good = goodRepository.findByBoardIdAndUserId(boardId, userId);
         Optional<Board> board = boardRepository.findById(boardId);
         Optional<User> user = userRepository.findById(userId);
         if(good.isEmpty()){
