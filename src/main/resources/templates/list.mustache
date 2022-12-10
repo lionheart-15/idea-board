@@ -1,5 +1,7 @@
 {{>layouts/header}}
 <br>
+
+
 <div>
     <form action="/boards/{{category}}" method="get" class="row">
         <div class="offset-1 col-3">
@@ -16,24 +18,24 @@
                     <input type="text" name="keyword" style="width: 250px" value="{{keyword}}">
                 {{/keyword}}
                 {{^keyword}}
-                    <input type="text" name="keyword" style="width: 250px">
+                    <input type="text" name="keyword" style="width: 250px" placeholder="검색어를 입력해주세요">
                 {{/keyword}}
-                <button type="submit" class="btn btn-primary" style="margin-top: 0px;">검색</button>
+                <button type="submit" class="btn btn-primary" style="background-color: lightskyblue; border: 1px solid lightskyblue; color: #000;">검색</button>
             </div>
         </div>
     </form>
 </div>
 <div class="row">
-    <div class="offset-1 col-10">
-        <table class="table text-center">
-            <thead class="table-warning">
+    <div class="offset-1 col-10" >
+        <table class="table text-center" >
+            <thead class="table-warning" >
             <tr>
-                <th class="col-md-1">Id</th>
-                <th class="col-md-4">제목</th>
-                <th class="col-md-3">작성자</th>
-                <th class="col-md-1">댓글수</th>
-                <th class="col-md-1">좋아요</th>
-                <th class="col-md-2">작성일자</th>
+                <th class="col-md-1" style="background-color: #B7CFF7">Id</th>
+                <th class="col-md-4" style="background-color: #B7CFF7">제목</th>
+                <th class="col-md-3" style="background-color: #B7CFF7">작성자</th>
+                <th class="col-md-1" style="background-color: #B7CFF7">댓글수</th>
+                <th class="col-md-1" style="background-color: #B7CFF7">좋아요</th>
+                <th class="col-md-2" style="background-color: #B7CFF7">작성일자</th>
             </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -54,26 +56,50 @@
         <ul class="pagination justify-content-center">
             <!-- keyword가 존재하면 => 검색 o -->
             {{#keyword}}
-                <li class="page-item">
-                    <a class="page-link" href="?searchOption={{searchOption}}&keyword={{keyword}}&page={{previous}}">Previous</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?searchOption={{searchOption}}&keyword={{keyword}}&page={{next}}">Next</a>
-                </li>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             {{/keyword}}
             <!-- keyword가 존재하지 않으면 => 검색 x -->
             {{^keyword}}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{previous}}">Previous</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{next}}">Next</a>
-                </li>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             {{/keyword}}
         </ul>
-        <div class="col-3 text-end">
-            <button class="btn btn-danger">글 작성</button>
+
+        <div style="float: right">
+            <a class="btn btn-primary" style="margin-right: 130px; background-color: lightskyblue; border: 1px solid lightskyblue; color: black">글 작성</a>
         </div>
+
     </div>
 </div>
 {{>layouts/footer}}

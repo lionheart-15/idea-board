@@ -2,3 +2,29 @@ table{
     margin-left:auto;
     margin-right:auto;
 }
+
+.writer_btn>a, .writer_btn>button[type=submit], .writer_btn>button[type=reset] {
+    height: 40px;
+    padding: 0 13px;
+    border-radius: 20px;
+    border: 1px solid lightskyblue;
+    font-size: 13px;
+    color: #000;
+    line-height: 38px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fff;
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+}
+.writer_btn>a:hover, .writer_btn>button[type=submit]:hover, .writer_btn>button[type=reset]:hover {
+    background-color: lightskyblue;
+    color: white;
+    cursor: pointer;
+}
+
+.writer_btn>a{
+    text-decoration: none;
+}

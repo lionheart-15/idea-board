@@ -30,6 +30,16 @@ public class UserController {
             log.info("auth name : {}", auth.getName());
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/users/login";
+        return "redirect:/";
+    }
+
+    @GetMapping("/signup")
+    public String signupPage() {
+        return "signup";
+    }
+
+    @GetMapping("/{userId}/myPage")
+    public String myPage() {
+        return "mypage01";
     }
 }

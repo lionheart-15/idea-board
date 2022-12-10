@@ -1,10 +1,11 @@
 {{>layouts/header}}
 <br>
+
 <link rel="stylesheet" href="css/detail.css">
 <div id="all">
     {{#board}}
     <div class="container">
-        <div class="detailbtn btn">
+        <div class="detailbtn btn" style="float: right">
             <!--href-->
             <a href="/boards/delete/{{board.id}}" class="btn btn-primary">삭제</a>
             <a href="/boards/edit/{{board.id}}" class="btn btn-primary">수정</a>
@@ -40,7 +41,7 @@
 
         </ul>
     </div>
-    {{/board}}
+        {{/board}}
     {{! 이전 글 다음 글}}
     <div class="page-control" style="padding-left: 50px">
         <div style="display: inline-block">
@@ -75,8 +76,8 @@
                 </li>
 
                 <div class="comment_btn">
-                    <a href="/comments/" class="comment_btn" class="btn btn-primary">저장</a>
-                    <a href="/comments/" class="comment_btn" class="btn btn-primary">취소</a>
+                    <button type="submit">저장</button>
+                    <button type="reset">취소</button>
                 </div>
             </ul>
 
