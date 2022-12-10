@@ -1,9 +1,6 @@
 package com.lionheart15.ideamarket.domain.entity;
 
-import com.lionheart15.ideamarket.domain.entity.dto.UserSignUpDto;
-import com.lionheart15.ideamarket.service.UserService;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
