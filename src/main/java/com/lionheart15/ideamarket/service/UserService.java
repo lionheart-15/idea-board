@@ -1,7 +1,7 @@
 package com.lionheart15.ideamarket.service;
 
+import com.lionheart15.ideamarket.domain.dto.UserSignUpDto;
 import com.lionheart15.ideamarket.domain.entity.User;
-import com.lionheart15.ideamarket.domain.entity.dto.UserSignUpDto;
 import com.lionheart15.ideamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -19,23 +19,10 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public boolean checkUsernameDuplication(String loginId) {
-        boolean usernameDuplicate = userRepository.existsByLoginId(loginId);
-        return usernameDuplicate;
+        return userRepository.existsByLoginId(loginId);
     }
-    public User save(String birth,String email,int gender,String loginId,String name,String password,String phoneNumber) {
-        User user = User.builder()
-                .birth(birth)
-                .email(email)
-                .gender(gender)
-                .loginId(loginId)
-                .name(name)
-                .password(encoder.encode(password))
-                .phoneNumber(phoneNumber)
-                .role("user")
-                .build();
-
-        userRepository.save(user);
-        return user;
+    public User save(UserSignUpDto dto) {
+        return userRepository.save(dto.toEntity(encoder.encode(dto.getPassword())));
     }
       
     public User findById(Long id) {

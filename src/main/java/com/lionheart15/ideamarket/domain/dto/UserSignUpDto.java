@@ -1,4 +1,4 @@
-package com.lionheart15.ideamarket.domain.entity.dto;
+package com.lionheart15.ideamarket.domain.dto;
 
 import com.lionheart15.ideamarket.domain.entity.User;
 import lombok.AllArgsConstructor;
@@ -23,4 +23,16 @@ public class UserSignUpDto {
     private String birth;
     private int gender;
 
+    public User toEntity(String encodedPassword) {
+        return User.builder()
+                .birth(birth)
+                .email(email)
+                .gender(gender)
+                .loginId(loginId)
+                .name(name)
+                .password(encodedPassword)
+                .phoneNumber(phoneNumber)
+                .role("USER")
+                .build();
+    }
 }
