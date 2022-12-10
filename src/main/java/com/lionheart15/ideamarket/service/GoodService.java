@@ -9,26 +9,35 @@ import com.lionheart15.ideamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class GoodService {
-    private final GoodRepository goodRepository;
     private final BoardRepository boardRepository;
+    private final GoodRepository goodRepository;
     private final UserRepository userRepository;
 
     public Page<Board> printPopularList(Pageable pageable){
         Page<Board> boardList = boardRepository.popularList(pageable);
         return boardList;
+    }
+
+    public void findById(Long boardId,Long userId){
+        Optional<Good> good = goodRepository.findByBoardIdAndUserId(boardId,userId);
+        Optional<Board> board = boardRepository.findById(boardId);
+        Optional<User> user = userRepository.findById(userId);
+        if(good.isEmpty()){
+            Good saveGood = Good.builder()
+                            .user(user.get())
+                            .board(board.get())
+                            .build();
+            goodRepository.save(saveGood);
+        }else{
+            goodRepository.deleteById(good.get().getId());
+        }
     }
 
 }

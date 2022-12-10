@@ -1,4 +1,4 @@
-package com.lionheart15.ideamarket;
+package com.lionheart15.ideamarket.controller;
 
 import com.lionheart15.ideamarket.domain.entity.Board;
 import com.lionheart15.ideamarket.domain.entity.User;

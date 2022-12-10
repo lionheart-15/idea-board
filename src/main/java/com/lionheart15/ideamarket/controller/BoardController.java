@@ -2,7 +2,9 @@ package com.lionheart15.ideamarket.controller;
 
 import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
 import com.lionheart15.ideamarket.domain.entity.Board;
+import com.lionheart15.ideamarket.domain.entity.User;
 import com.lionheart15.ideamarket.service.BoardService;
+import com.lionheart15.ideamarket.service.GoodService;
 import com.lionheart15.ideamarket.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final UserService userService;
+    private final GoodService goodService;
 
     @GetMapping("/{category}")
     public String boardList(@PathVariable String category, Model model,
@@ -111,6 +115,14 @@ public class BoardController {
         boardTemp.setContent(board.getContent());
         boardService.save(boardTemp);
 
+        return "redirect:/boards/view/{id}";
+    }
+
+    @PostMapping("/like/{id}")
+    public String likeBoard(@PathVariable Long id) {
+        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        // User loginUser = userService.findByLoginId(loginId).get();
+        goodService.findById(id,3L);
         return "redirect:/boards/view/{id}";
     }
 }
