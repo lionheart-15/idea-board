@@ -16,7 +16,7 @@ public class Comment {
     private Long id;
 
     private String content;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     // Comment : User = N : 1
     @ManyToOne(fetch = FetchType.LAZY)
