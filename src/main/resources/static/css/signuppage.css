@@ -150,15 +150,8 @@ li{
     height: 40px;
     padding: 0 13px;
     border-radius: 20px;
-}
-.signup_btn>a{
     border: 1px solid lightskyblue;
-    display:block;
-    margin: 8px 0;
-    height: 40px;
-    width: 400px;
-}
-.signup_btn>a:hover{
     background-color: lightskyblue;
-    color: white;
+    width: 300px;
 }
+
