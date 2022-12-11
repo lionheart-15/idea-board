@@ -119,10 +119,12 @@ public class BoardController {
     }
 
     @PostMapping("/like/{boardId}")
-    public String likeBoard(@PathVariable Long id) {
+    public String likeBoard(@PathVariable Long boardId) {
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
         User loginUser = userService.findByLoginId(loginId).get();
-        goodService.findById(id,3L);
-        return "redirect:/boards/view/{id}";
+        log.info("boardId : {}", boardId);
+        log.info("loginUserId : {}", loginUser.getId());
+        goodService.createGood(boardId, loginUser.getId());
+        return "redirect:/boards/view/{boardId}";
     }
 }
