@@ -1,9 +1,13 @@
 package com.lionheart15.ideamarket.controller;
 
 import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
+import com.lionheart15.ideamarket.domain.dto.CommentRequestDto;
+import com.lionheart15.ideamarket.domain.dto.CommentResponseDto;
 import com.lionheart15.ideamarket.domain.entity.Board;
+import com.lionheart15.ideamarket.domain.entity.Comment;
 import com.lionheart15.ideamarket.domain.entity.User;
 import com.lionheart15.ideamarket.service.BoardService;
+import com.lionheart15.ideamarket.service.CommentService;
 import com.lionheart15.ideamarket.service.GoodService;
 import com.lionheart15.ideamarket.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Optional;
@@ -31,6 +36,7 @@ public class BoardController {
     private final BoardService boardService;
     private final UserService userService;
     private final GoodService goodService;
+    private final CommentService commentService;
 
     @GetMapping("/{category}")
     public String boardList(@PathVariable String category, Model model,
@@ -83,6 +89,16 @@ public class BoardController {
             }
         }
 
+        List<Comment> commentList = commentService.findByBoardId(id);
+
+        // list<Comment>를 response dto로 변환하는 과정(data type)
+        List<CommentResponseDto> responseList = commentList.stream()
+                .map(list -> {
+                    return CommentResponseDto.of(list);
+                }).collect(Collectors.toList());
+
+        model.addAttribute("comment", responseList);
+
         model.addAttribute("board", boardService.boardView(id));
         return "detail";
     }
@@ -118,7 +134,9 @@ public class BoardController {
         Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("userId", userId);
 
+
         Optional<Board> optionalBoard = Optional.ofNullable(boardService.boardView(id));
+
         model.addAttribute("board", optionalBoard.get());
         return "edit";
     }
@@ -144,4 +162,32 @@ public class BoardController {
         goodService.createGood(boardId, loginUser.getId());
         return "redirect:/boards/view/{boardId}";
     }
+
+    // 댓글
+    @PostMapping("/comment/{boardId}")
+    public String createComment(@PathVariable Long boardId, CommentRequestDto commentRequestDto) {
+
+
+        // dto setting
+        Board board = boardService.boardView(boardId);
+        commentRequestDto.setBoard(board);
+        commentRequestDto.setCreateAt(LocalDateTime.now());
+
+        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> loginUser = userService.findByLoginId(loginId);
+        if(loginUser.isPresent()){
+            commentRequestDto.setUser(loginUser.get());
+        }else{
+            log.info("로그인 유저 아이디가 없습니다!");
+        }
+
+        log.info("board : " + commentRequestDto.getBoard().getId());
+        log.info("content : " + commentRequestDto.getContent());
+        log.info("setCreateAt : " + commentRequestDto.getCreateAt());
+        commentService.save(commentRequestDto);
+
+        return "redirect:/boards/view/{boardId}";
+    }
+
+
 }
