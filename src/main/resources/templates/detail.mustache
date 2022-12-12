@@ -6,9 +6,10 @@
     {{#board}}
     <div class="container">
         <div class="detailbtn btn" style="float: right">
-            <!--href-->
-            <a href="/boards/delete/{{board.id}}" class="btn btn-primary">삭제</a>
-            <a href="/boards/edit/{{board.id}}" class="btn btn-primary">수정</a>
+            {{#myBoard}}
+                <a href="/boards/delete/{{board.id}}" class="btn btn-primary">삭제</a>
+                <a href="/boards/edit/{{board.id}}" class="btn btn-primary">수정</a>
+            {{/myBoard}}
         </div>
         <ul>
             <!-- css가 풀린 부분-->
@@ -51,17 +52,18 @@
         </div>
     </div>
 
-    <br>
-    <hr>
+
 
         {{! 댓글 작성}}
-
+        {{#userLoginId}}
+            <br>
+            <hr>
             <ul id="main" >
                 <li style="margin: 10px 0px;">
                     <ul class="row" style="-webkit-padding-start:0px;">
                         <li>댓글 작성</li>
                         <li class="userid-li">
-                            <input type="text" name="name" class="input1" readonly value="댓글 작성자 id">
+                            <input type="text" name="name" class="input1" readonly value="{{userLoginId}}">
                         </li>
                     </ul>
                 </li>
@@ -78,7 +80,7 @@
                     <button type="reset">취소</button>
                 </div>
             </ul>
-
+        {{/userLoginId}}
 
         {{! 작성된 댓글 목록}}
             <hr class="list">

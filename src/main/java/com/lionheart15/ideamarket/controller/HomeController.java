@@ -1,5 +1,6 @@
 package com.lionheart15.ideamarket.controller;
 
+import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
 import com.lionheart15.ideamarket.domain.entity.Board;
 import com.lionheart15.ideamarket.domain.entity.User;
 import com.lionheart15.ideamarket.service.GoodService;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,19 +30,16 @@ public class HomeController {
 
     @GetMapping(value = {"", "/"})
     public String home(Model model, @PageableDefault(size=10) Pageable pageable) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth != null) {
-            Optional<User> optionalUser = userService.findByLoginId(auth.getName());
-            log.info("authName: {}", auth.getName());
-            if(optionalUser.isPresent()) {
-                log.info("loginUserName : {}", optionalUser.get().getName());
-                User loginUser = optionalUser.get();
-                //model.addAttribute("userLoginId", loginUser.getLoginId());
-                model.addAttribute("userId", loginUser.getId());
-            }
-        }
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        model.addAttribute("userId", userId);
+
         Page<Board> boardPage = goodService.printPopularList(pageable);
-        model.addAttribute("list", boardPage);
+        List<BoardListResponse> responseList = boardPage.stream()
+                .map(board -> {
+                    return BoardListResponse.of(board);
+                }).collect(Collectors.toList());
+
+        model.addAttribute("boards", responseList);
         return "main";
     }
 }

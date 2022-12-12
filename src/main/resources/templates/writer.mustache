@@ -1,7 +1,8 @@
 {{>layouts/header}}
+<link rel="stylesheet" href="/css/writer.css">
 <br>
 <div class="container text-center">
-<form method="post" action="/boards/create_post">
+<form method="post" action="/boards/{{category}}/write/{{userId}}">
     <table class="table table-striped" style="text-align: center; border: solid 1px #dddddd">
         <thead>
         <tr>
@@ -33,7 +34,7 @@
     <div class="writer_btn">
         <button type="submit">등록</button>
         <button type="reset">초기화</button>
-        <a href="/list">목록</a>
+        <a href="/boards/{{category}}">목록</a>
     </div>
 
 

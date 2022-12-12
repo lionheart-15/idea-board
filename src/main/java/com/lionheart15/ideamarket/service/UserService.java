@@ -5,6 +5,7 @@ import com.lionheart15.ideamarket.domain.entity.User;
 import com.lionheart15.ideamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,5 +32,12 @@ public class UserService {
 
     public Optional<User> findByLoginId(String loginId) {
         return userRepository.findByLoginId(loginId);
+    }
+
+    public Long getLoginUserId(Authentication auth) {
+        if(auth == null) return null;
+        Optional<User> optionalUser = userRepository.findByLoginId(auth.getName());
+        if(optionalUser.isEmpty()) return null;
+        return optionalUser.get().getId();
     }
 }

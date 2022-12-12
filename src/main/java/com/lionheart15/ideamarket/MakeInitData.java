@@ -49,11 +49,11 @@ public class MakeInitData {
         userRepository.save(user3);
 
         LocalDateTime time = LocalDateTime.now();
-        Board board1 = Board.builder().title("title1").content("mycontentis").createdAt(time).category("일반게시판").user(user1).build();
-        Board board2 = Board.builder().title("title2").content("mycontentis").createdAt(time).category("일반게시판").user(user2).build();
-        Board board3 = Board.builder().title("title3").content("mycontentis").createdAt(time).category("일반게시판").user(user1).build();
-        Board board4 = Board.builder().title("title4").content("mycontentis").createdAt(time).category("일반게시판").user(user1).build();
-        Board board5 = Board.builder().title("title5").content("mycontentis").createdAt(time).category("일반게시판").user(user3).build();
+        Board board1 = Board.builder().title("title1").content("mycontentis").createdAt(time).category("Development").user(user1).build();
+        Board board2 = Board.builder().title("title2").content("mycontentis").createdAt(time).category("Development").user(user).build();
+        Board board3 = Board.builder().title("title3").content("mycontentis").createdAt(time).category("Development").user(user1).build();
+        Board board4 = Board.builder().title("title4").content("mycontentis").createdAt(time).category("Development").user(user1).build();
+        Board board5 = Board.builder().title("title5").content("mycontentis").createdAt(time).category("Youtube").user(user3).build();
         boardRepository.save(board1);
         boardRepository.save(board2);
         boardRepository.save(board3);
