@@ -36,6 +36,8 @@ public class BoardController {
     public String boardList(@PathVariable String category, Model model,
                             @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchOption,
                             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        model.addAttribute("userId", userId);
 
         Page<Board> boardPage = null;
         if(searchOption == null) {
@@ -72,20 +74,32 @@ public class BoardController {
     // view
     @GetMapping("/view/{id}")
     public String boardView(Model model, @PathVariable Long id) {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        model.addAttribute("userId", userId);
+        if(userId != null) {
+            model.addAttribute("userLoginId", userService.findById(userId).getLoginId());
+            if(userId == boardService.boardView(id).getUser().getId()) {
+                model.addAttribute("myBoard", true);
+            }
+        }
+
         model.addAttribute("board", boardService.boardView(id));
         return "detail";
     }
 
     // write
-    @GetMapping("/write")
-    public String createBoard() {
+    @GetMapping("/{category}/write")
+    public String createBoard(@PathVariable String category, Model model) {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        model.addAttribute("userId", userId);
+
         return "writer";
     }
 
-    @PostMapping("/create_post")
-    public String boardWrite(Board board) {
-        board.setCategory("일반게시판");
-        board.setUser(userService.findById(1L));
+    @PostMapping("/{category}/write/{userId}")
+    public String boardWrite(@PathVariable String category, @PathVariable Long userId, Board board) {
+        board.setCategory(category);
+        board.setUser(userService.findById(userId));
         board.setCreatedAt(LocalDateTime.now());
         boardService.write(board);
         return "redirect:/boards/view/" + board.getId();
@@ -101,6 +115,9 @@ public class BoardController {
     // edit
     @GetMapping("/edit/{id}")
     public String boardEdit(@PathVariable Long id, Model model) {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        model.addAttribute("userId", userId);
+
         Optional<Board> optionalBoard = Optional.ofNullable(boardService.boardView(id));
         model.addAttribute("board", optionalBoard.get());
         return "edit";

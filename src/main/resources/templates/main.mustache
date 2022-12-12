@@ -11,24 +11,26 @@
             <thead class="table-warning">
             <tr>
                 <th class="col-md-1">Id</th>
-                <th class="col-md-4">제목</th>
-                <th class="col-md-3">작성자</th>
+                <th class="col-md-2">카테고리</th>
+                <th class="col-md-3">제목</th>
+                <th class="col-md-2">작성자</th>
                 <th class="col-md-1">댓글수</th>
                 <th class="col-md-1">좋아요</th>
                 <th class="col-md-2">작성일자</th>
             </tr>
             </thead>
             <tbody class="table-group-divider">
-            {{#list}}
+            {{#boards}}
                 <tr>
                     <th>{{id}}</th>
+                    <td>{{category}}</td>
                     <td><a href="/boards/view/{{id}}">{{title}}</a></td>
-                    <td>2</td>
-                    <td>유저1</td>
-                    <td>23</td>
-                    <td>20221204</td>
+                    <td>{{userName}}</td>
+                    <td>{{commentCount}}</td>
+                    <td>{{goodCount}}</td>
+                    <td>{{createdAt}}</td>
                 </tr>
-            {{/list}}
+            {{/boards}}
             </tbody>
         </table>
     </div>

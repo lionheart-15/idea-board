@@ -1,7 +1,5 @@
 {{>layouts/header}}
 <br>
-
-
 <div>
     <form action="/boards/{{category}}" method="get" class="row">
         <div class="offset-1 col-3">
@@ -97,7 +95,8 @@
         </ul>
 
         <div style="float: right">
-            <a class="btn btn-primary" style="margin-right: 130px; background-color: lightskyblue; border: 1px solid lightskyblue; color: black">글 작성</a>
+            <a class="btn btn-primary"  href="/boards/{{category}}/write"
+               style="margin-right: 130px; background-color: lightskyblue; border: 1px solid lightskyblue; color: black">글 작성</a>
         </div>
 
     </div>

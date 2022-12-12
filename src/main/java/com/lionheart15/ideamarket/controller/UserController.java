@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,11 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginPage() {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        if(userId != null) {
+            return "redirect:/";
+        }
+
         return "login";
     }
 
@@ -59,13 +65,27 @@ public class UserController {
 
     @GetMapping("/signup")
     public String signupPage() {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        if(userId != null) {
+            return "redirect:/";
+        }
+
         return "signup";
     }
 
     @GetMapping("/{userId}/myPage")
-
     public String myPage(@PathVariable Long userId, Model model) {
-        User user = userService.findById(userId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> optionalUser = userService.findByLoginId(auth.getName());
+
+        // 다른 유저의 마이페이지에 접근하려는 경우 => 홈으로 보냄
+        if(optionalUser.isEmpty() || optionalUser.get().getId() != userId)  {
+            model.addAttribute("wrongId", true);
+        }
+        model.addAttribute("userId", userId);
+        model.addAttribute("userLoginId", optionalUser.get().getLoginId());
+        
+        User user = optionalUser.get();
 
         List<Board> boardList = user.getBoards();
         model.addAttribute("boardList",boardList);

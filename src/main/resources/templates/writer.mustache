@@ -1,9 +1,10 @@
 {{>layouts/header}}
+<link rel="stylesheet" href="/css/writer.css">
 <br>
 <link rel="stylesheet" href="/css/writer.css">
 <div class="container text-center">
-<form method="post" action="/boards/create_post">
-    <table class="table table-striped" style="text-align: center; border: solid 1px #dddddd; width: 800px">
+<form method="post" action="/boards/{{category}}/write/{{userId}}">
+    <table class="table table-striped" style="text-align: center; border: solid 1px #dddddd">
         <thead>
         <tr>
             <th style="text-align: center;">게시판 글쓰기 양식</th>
@@ -34,7 +35,7 @@
     <div class="writer_btn">
         <button type="submit">등록</button>
         <button type="reset">초기화</button>
-        <a href="/list">목록</a>
+        <a href="/boards/{{category}}">목록</a>
     </div>
 
 

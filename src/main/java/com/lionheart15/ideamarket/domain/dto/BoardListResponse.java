@@ -23,10 +23,12 @@ public class BoardListResponse {
     private int commentCount;
     private int goodCount;
     private String createdAt;
+    private String category;
 
     public static BoardListResponse of(Board board) {
         return BoardListResponse.builder()
                 .id(board.getId())
+                .category(board.getCategory())
                 .title(board.getTitle())
                 .userName(board.getUser().getName())
                 .commentCount(board.getComments().size())

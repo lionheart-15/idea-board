@@ -1,20 +1,14 @@
 * {
     box-sizing: border-box;
 }
-body {
-    font-family: 'Montserrat', sans-serif;
-    height: 100vh;
-    margin: 20px 0 50px;
-}
 h1 {
     font-weight: bold;
     margin: 0;
 }
-a {
+.bottomA {
     color: #FFFFFF;
     font-size: 14px;
     text-decoration: none;
-    margin: 15px 0;
 }
 .link{
     color: #2b67ff;
