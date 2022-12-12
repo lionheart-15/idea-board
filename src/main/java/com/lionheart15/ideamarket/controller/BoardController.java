@@ -90,10 +90,18 @@ public class BoardController {
     // write
     @GetMapping("/{category}/write")
     public String createBoard(@PathVariable String category, Model model) {
-        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
-        model.addAttribute("userId", userId);
+        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        User loginUser = userService.findByLoginId(loginId).get();
+        model.addAttribute("userId", loginId);
+       String role = loginUser.getRole();
 
-        return "writer";
+        if(category.equals("Notice")){
+            if(role.equals("ADMIN")){
+                return "writer";
+            }else
+                return "";
+        }
+            return "writer";
     }
 
     @PostMapping("/{category}/write/{userId}")
