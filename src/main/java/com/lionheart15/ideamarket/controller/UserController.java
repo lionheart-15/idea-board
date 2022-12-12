@@ -7,9 +7,15 @@ import com.lionheart15.ideamarket.domain.entity.Comment;
 import com.lionheart15.ideamarket.domain.entity.Good;
 import com.lionheart15.ideamarket.domain.entity.User;
 import com.lionheart15.ideamarket.service.BoardService;
+import com.lionheart15.ideamarket.service.CommentService;
 import com.lionheart15.ideamarket.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -31,6 +37,7 @@ public class UserController {
 
     private final UserService userService;
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -74,7 +81,8 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/myPage")
-    public String myPage(@PathVariable Long userId, Model model) {
+    public String myPage(@PathVariable Long userId, Model model,
+                         @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> optionalUser = userService.findByLoginId(auth.getName());
 
@@ -82,16 +90,26 @@ public class UserController {
         if(optionalUser.isEmpty() || optionalUser.get().getId() != userId)  {
             model.addAttribute("wrongId", true);
         }
+
         model.addAttribute("userId", userId);
         model.addAttribute("userLoginId", optionalUser.get().getLoginId());
         
         User user = optionalUser.get();
-
-        List<Board> boardList = user.getBoards();
-        model.addAttribute("boardList",boardList);
+        Page<Board> boardListPage = boardService.findByUserId(userId,pageable);
+        model.addAttribute("boardList",boardListPage);
         //user 엔티티에 매핑되어있는 board 에 대한 값들을 저장
-        List<Comment> commentList = user.getComments();
-        model.addAttribute("commentList",commentList);
+        int boardPrevious = pageable.previousOrFirst().getPageNumber();
+        int boardNext = pageable.next().getPageNumber();
+        model.addAttribute("boardprevious",boardPrevious);
+        model.addAttribute("boardnext",boardNext);
+
+
+        Page<Comment> commentListPage = commentService.findByUserId(userId,pageable);
+        model.addAttribute("commentList",commentListPage);
+        int commentPrevious = pageable.previousOrFirst().getPageNumber();
+        int commentNext = pageable.next().getPageNumber();
+        model.addAttribute("commentprevious",commentPrevious);
+        model.addAttribute("commentnext",commentNext);
         //user 엔티티에 매핑되어있는 comment 에 대한 값들 저장
 
 
@@ -103,6 +121,8 @@ public class UserController {
         }
         //user 가 좋아요한 리스트를 뽑아서 response 형태로 변환해 무스타치로 넘김
         model.addAttribute("boardGoodsList",boardGoodsList);
+
+
         return "mypage01";
     }
 }

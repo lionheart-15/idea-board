@@ -31,7 +31,7 @@ public class GoodService {
         Optional<Good> good = goodRepository.findByBoardIdAndUserId(boardId, userId);
         Optional<Board> board = boardRepository.findById(boardId);
         Optional<User> user = userRepository.findById(userId);
-        if(good.isEmpty()){
+        if(!good.isPresent()){
             Good saveGood = Good.builder()
                             .user(user.get())
                             .board(board.get())
@@ -40,6 +40,18 @@ public class GoodService {
         }else{
             goodRepository.deleteById(good.get().getId());
         }
+    }
+
+    public boolean isPresent(Long boardId, Long userId){
+        Optional<Good> good = goodRepository.findByBoardIdAndUserId(boardId, userId);
+        Optional<Board> board = boardRepository.findById(boardId);
+        Optional<User> user = userRepository.findById(userId);
+        if(good.isPresent()){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 }

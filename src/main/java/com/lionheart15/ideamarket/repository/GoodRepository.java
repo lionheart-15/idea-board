@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface GoodRepository extends JpaRepository<Good, Long> {
     Optional<Good> findByBoardIdAndUserId(Long boardId, Long userId);
-
+    Optional<Good> findByUserId(Long userId);
 }

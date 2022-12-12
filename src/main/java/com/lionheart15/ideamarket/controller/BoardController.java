@@ -36,8 +36,6 @@ public class BoardController {
     public String boardList(@PathVariable String category, Model model,
                             @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchOption,
                             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
-        model.addAttribute("userId", userId);
 
         Page<Board> boardPage = null;
         if(searchOption == null) {
@@ -74,32 +72,25 @@ public class BoardController {
     // view
     @GetMapping("/view/{id}")
     public String boardView(Model model, @PathVariable Long id) {
-        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
-        model.addAttribute("userId", userId);
-        if(userId != null) {
-            model.addAttribute("userLoginId", userService.findById(userId).getLoginId());
-            if(userId == boardService.boardView(id).getUser().getId()) {
-                model.addAttribute("myBoard", true);
-            }
-        }
-
         model.addAttribute("board", boardService.boardView(id));
+        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> loginUser = userService.findByLoginId(loginId);
+        if(goodService.isPresent(id,loginUser.get().getId())){
+            model.addAttribute("good",1);
+        }
         return "detail";
     }
 
     // write
-    @GetMapping("/{category}/write")
-    public String createBoard(@PathVariable String category, Model model) {
-        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
-        model.addAttribute("userId", userId);
-
+    @GetMapping("/write")
+    public String createBoard() {
         return "writer";
     }
 
-    @PostMapping("/{category}/write/{userId}")
-    public String boardWrite(@PathVariable String category, @PathVariable Long userId, Board board) {
-        board.setCategory(category);
-        board.setUser(userService.findById(userId));
+    @PostMapping("/create_post")
+    public String boardWrite(Board board) {
+        board.setCategory("일반게시판");
+        board.setUser(userService.findById(1L));
         board.setCreatedAt(LocalDateTime.now());
         boardService.write(board);
         return "redirect:/boards/view/" + board.getId();
@@ -115,9 +106,6 @@ public class BoardController {
     // edit
     @GetMapping("/edit/{id}")
     public String boardEdit(@PathVariable Long id, Model model) {
-        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
-        model.addAttribute("userId", userId);
-
         Optional<Board> optionalBoard = Optional.ofNullable(boardService.boardView(id));
         model.addAttribute("board", optionalBoard.get());
         return "edit";
@@ -138,10 +126,12 @@ public class BoardController {
     @PostMapping("/like/{boardId}")
     public String likeBoard(@PathVariable Long boardId) {
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        User loginUser = userService.findByLoginId(loginId).get();
-        log.info("boardId : {}", boardId);
-        log.info("loginUserId : {}", loginUser.getId());
-        goodService.createGood(boardId, loginUser.getId());
+        Optional<User> loginUser = userService.findByLoginId(loginId);
+        if(loginUser.isPresent()){
+            goodService.createGood(boardId,loginUser.get().getId());
+        }else{
+            log.info("로그인 유저 아이디가 없습니다!");
+        }
         return "redirect:/boards/view/{boardId}";
     }
 }

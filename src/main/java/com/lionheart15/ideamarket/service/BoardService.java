@@ -43,4 +43,9 @@ public class BoardService {
     public Board save(Board board) {
         return boardRepository.save(board);
     }
+
+
+    public Page<Board> findByUserId(Long userId, Pageable pageable){
+        return boardRepository.findByUserId(userId,pageable);
+    }
 }
