@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -62,6 +64,12 @@ public class MakeInitData {
         boardRepository.save(board3);
         boardRepository.save(board4);
         boardRepository.save(board5);
+
+        List<Board> boards = new ArrayList<>();
+        for(int i = 0 ; i <= 18 ; i ++) {
+            boards.add(Board.builder().title("title" + (i + 6)).content("123").createdAt(time).category("Development").user(user1).build());
+            boardRepository.save(boards.get(i));
+        }
 
         Good good1 = Good.builder().user(user).board(board1).build();
         Good good4 = Good.builder().user(user).board(board5).build();

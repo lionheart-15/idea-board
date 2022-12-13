@@ -6,6 +6,8 @@ import com.lionheart15.ideamarket.domain.entity.Comment;
 import com.lionheart15.ideamarket.repository.BoardRepository;
 import com.lionheart15.ideamarket.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +42,9 @@ public class CommentService {
 
     public List<Comment> findByBoardId(Long boardId) {
         return commentRepository.findByBoardId(boardId);
+    }
+
+    public Page<Comment> findByUserId(Long userId, Pageable pageable) {
+        return commentRepository.findByUserId(userId,pageable);
     }
 }

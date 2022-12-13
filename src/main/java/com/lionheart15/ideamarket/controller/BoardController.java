@@ -44,7 +44,7 @@ public class BoardController {
                             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("userId", userId);
-        
+
         Page<Board> boardPage = null;
         if(searchOption == null) {
             boardPage = boardService.findByCategory(category, pageable);
@@ -63,9 +63,22 @@ public class BoardController {
         model.addAttribute("category", category);
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchOption", searchOption);
+        if(searchOption != null && searchOption.equals("userName")) {
+            model.addAttribute("searchUser", true);
+        }
         model.addAttribute("boards", responseList);
-        model.addAttribute("previous", boardPage.previousOrFirstPageable().getPageNumber());
-        model.addAttribute("next", boardPage.nextOrLastPageable().getPageNumber());
+        model.addAttribute("lastPage", boardPage.getTotalPages());
+
+        log.info("{}", boardPage.getNumber());
+
+        model.addAttribute("nowPage", boardPage.getNumber() + 1);
+        if(boardPage.hasPrevious()) {
+            model.addAttribute("previousPage", boardPage.getNumber());
+        }
+        if(boardPage.hasNext()) {
+            model.addAttribute("nextPage", boardPage.getNumber() + 2);
+        }
+
         model.addAttribute("searchCount", boardPage.getTotalElements());
 
         return "list";
@@ -102,7 +115,7 @@ public class BoardController {
         model.addAttribute("board", boardService.boardView(id));
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> loginUser = userService.findByLoginId(loginId);
-        if(goodService.isPresent(id,loginUser.get().getId())){
+        if(loginUser.isPresent() && goodService.isPresent(id,loginUser.get().getId())){
             model.addAttribute("good",1);
         }
         return "detail";
@@ -113,25 +126,25 @@ public class BoardController {
     public String createBoard(@PathVariable String category, Model model) {
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
         User loginUser = userService.findByLoginId(loginId).get();
-        model.addAttribute("userId", loginId);
-        board.setCategory(category);
-        board.setUser(userService.findById(loginUser.getId()));
+        model.addAttribute("userId", loginUser.getId());
         
        String role = loginUser.getRole();
 
-        if(category.equals("Notice")){
-            if(role.equals("ADMIN")){
+        if(category.equals("Notice")) {
+            if (role.equals("ADMIN")) {
                 return "writer";
-            }else
+            } else {
                 return "";
+            }
         }
-            return "writer";
+        return "writer";
     }
 
-    @PostMapping("/create_post")
-    public String boardWrite(Board board) {
-        board.setCategory("일반게시판");
-        board.setUser(userService.findById(1L));
+    @PostMapping("/{category}/write")
+    public String boardWrite(@PathVariable String category, Board board) {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        board.setCategory(category);
+        board.setUser(userService.findById(userId));
         board.setCreatedAt(LocalDateTime.now());
         boardService.write(board);
         return "redirect:/boards/view/" + board.getId();
@@ -184,7 +197,6 @@ public class BoardController {
     // 댓글
     @PostMapping("/comment/{boardId}")
     public String createComment(@PathVariable Long boardId, CommentRequestDto commentRequestDto) {
-
 
         // dto setting
         Board board = boardService.boardView(boardId);

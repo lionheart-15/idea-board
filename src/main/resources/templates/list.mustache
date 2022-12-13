@@ -8,10 +8,18 @@
         </div>
         <div class="offset-3 col-4 text-end">
             <div class="mb-3">
-                <select name="searchOption" style="width: 80px; height: 30px; text-align: center">
-                    <option value="title">제목</option>
-                    <option value="userName">작성자</option>
-                </select>
+                {{^searchUser}}
+                    <select name="searchOption" style="width: 80px; height: 30px; text-align: center">
+                        <option value="title" selected>제목</option>
+                        <option value="userName">작성자</option>
+                    </select>
+                {{/searchUser}}
+                {{#searchUser}}
+                    <select name="searchOption" style="width: 80px; height: 30px; text-align: center">
+                        <option value="title">제목</option>
+                        <option value="userName" selected>작성자</option>
+                    </select>
+                {{/searchUser}}
                 {{#keyword}}
                     <input type="text" name="keyword" style="width: 250px" value="{{keyword}}">
                 {{/keyword}}
@@ -56,17 +64,21 @@
             {{#keyword}}
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
+                        <li class="page-item">
+                            <a class="page-link" href="/boards/{{category}}?searchOption={{searchOption}}&keyword={{keyword}}&page=1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        {{#previousPage}}
+                            <li class="page-item"><a class="page-link" href="/boards/{{category}}?searchOption={{searchOption}}&keyword={{keyword}}&page={{previousPage}}">{{previousPage}}</a></li>
+                        {{/previousPage}}
+                        <li class="page-item"><a class="page-link" href="/boards/{{category}}?searchOption={{searchOption}}&keyword={{keyword}}&page={{nowPage}}">{{nowPage}}</a></li>
+                        {{#nextPage}}
+                            <li class="page-item"><a class="page-link" href="/boards/{{category}}?searchOption={{searchOption}}&keyword={{keyword}}&page={{nextPage}}">{{nextPage}}</a></li>
+                        {{/nextPage}}
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
+                            <a class="page-link" href="/boards/{{category}}?searchOption={{searchOption}}&keyword={{keyword}}&page={{lastPage}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
                     </ul>
@@ -76,17 +88,23 @@
             {{^keyword}}
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
+                        <li class="page-item">
+                            <a class="page-link" href="/boards/{{category}}?page=1" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        {{#previousPage}}
+                            <li class="page-item"><a class="page-link" href="/boards/{{category}}?page={{previousPage}}">{{previousPage}}</a></li>
+                        {{/previousPage}}
+
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="/boards/{{category}}?page={{nowPage}}">{{nowPage}}</a></li>
+
+                        {{#nextPage}}
+                            <li class="page-item"><a class="page-link" href="/boards/{{category}}?page={{nextPage}}">{{nextPage}}</a></li>
+                        {{/nextPage}}
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
+                            <a class="page-link" href="/boards/{{category}}?page={{lastPage}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
                     </ul>
