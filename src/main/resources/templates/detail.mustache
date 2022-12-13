@@ -21,21 +21,20 @@
             <img src="images" onerror="this.style.display='none';"/>
             {{!이미지가 없을 경우 대체 이미지 숨기기}}
 
-            {{#goods}}
+            {{#good}}
+                <div>
+                <form method="post" action="/boards/like/{{board.id}}">
+                    <input type="submit" value="좋아요취소">
+                </form>
+                </div>
+            {{/good}}
+            {{^good}}
                 <div>
                     <form method="post" action="/boards/like/{{board.id}}">
                         <input type="submit" value="좋아요">
                     </form>
                 </div>
-            {{/goods}}
-            {{^goods}}
-                <div>
-                    <form method="post" action="/boards/like/{{board.id}}">
-                        <input type="submit" value="좋아요 취소">
-                    </form>
-                </div>
-            {{/goods}}
-
+            {{/good}}
             <li class="cnt">좋아요 수</li> <li class="cnt">조회 수 &nbsp;</li> <li style="float: right;"><h6>작성일자 : </h6></li>
 
         </ul>
