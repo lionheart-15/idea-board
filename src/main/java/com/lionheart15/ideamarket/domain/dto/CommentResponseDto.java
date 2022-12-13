@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,19 +19,14 @@ public class CommentResponseDto {
 
     private String content;
     private String userName;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     public static CommentResponseDto of(Comment comment) {
-        return CommentResponseDto.builder().content(comment.getContent()).userName(comment.getUser().getName()).createdAt(comment.getCreatedAt()).build();
+        return CommentResponseDto.builder()
+                .content(comment.getContent())
+                .userName(comment.getUser().getName())
+                .createdAt(comment.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .build();
     }
 
-
-
-//    // entity -> dto
-//    public CommentResponseDto(Comment comment) {
-//        this.id = comment.getId();
-//        this.comment = getComment();
-//        this.createAt = getCreateAt();
-//        this.user = getUser();
-//    }
 }

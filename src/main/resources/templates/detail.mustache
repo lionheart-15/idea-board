@@ -62,9 +62,6 @@
                 <li style="margin: 10px 0px;">
                     <ul class="row" style="-webkit-padding-start:0px;">
                         <li>댓글 작성</li>
-                        <li class="userid-li">
-                            <input type="text" name="name" class="input1" readonly value="{{userLoginId}}">
-                        </li>
                     </ul>
                 </li>
 
@@ -87,7 +84,6 @@
             <hr class="list">
             {{#comment}}
             <ul>
-                    <span>댓글 수 []</span>
                     <li><input class="comment_id" type="hidden"></li>
                     <li class="comment_id">작성자 : {{userName}}</li>
                     <li class="comment">댓글 내용 : {{content}}</li>
