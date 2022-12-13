@@ -20,4 +20,6 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
 
     @Query(value = "select b from Board b order by b.goods.size DESC")
     Page<Board> popularList(Pageable pageable);
+
+    Page<Board> findByUserId(Long id,Pageable pageable);
 }
