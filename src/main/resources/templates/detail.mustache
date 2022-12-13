@@ -5,7 +5,7 @@
 <div id="all">
     {{#board}}
     <div class="container">
-        <div class="detailbtn btn" style="float: right">
+        <div class="detail_btn" style="float: right">
             {{#myBoard}}
                 <a href="/boards/delete/{{board.id}}" class="btn btn-primary">삭제</a>
                 <a href="/boards/edit/{{board.id}}" class="btn btn-primary">수정</a>
@@ -53,7 +53,8 @@
 
 
 
-        {{! 댓글 작성}}
+    {{! 댓글 작성}}
+    <form method="post" action="/boards/comment/{{board.id}}">
         {{#userLoginId}}
             <br>
             <hr>
@@ -69,8 +70,8 @@
 
                 <li>
                     <ul class="row2" style="-webkit-padding-start:0px;">
-                        <li><textarea name="content" rows="3" cols="50"
-                                      placeholder="댓글을 작성하세요." class="input2" ></textarea></li>
+                        <li><input type="text" name="content" rows="3" cols="50"
+                                      placeholder="댓글을 작성하세요." class="input2" ></li>
                     </ul>
                 </li>
 
@@ -80,22 +81,25 @@
                 </div>
             </ul>
         {{/userLoginId}}
+    </form>
 
         {{! 작성된 댓글 목록}}
             <hr class="list">
-
+            {{#comment}}
             <ul>
                     <span>댓글 수 []</span>
                     <li><input class="comment_id" type="hidden"></li>
-                    <li class="comment_id">댓글 작성자 id</li>
-                    <li class="comment">댓글 내용</li>
+                    <li class="comment_id">작성자 : {{userName}}</li>
+                    <li class="comment">댓글 내용 : {{content}}</li>
+                    <li class="comment">작성 시간 : {{createdAt}}</li>
 
             <div class="comment_btn">
                 <a href="/comments/" class="comment_btn" class="btn btn-primary">수정</a>
                 <a href="/comments/" class="comment_btn" class="btn btn-primary">삭제</a>
             </div>
 
-        </ul>
+            </ul>
+            {{/comment}}
 
 </div>
 <br>
