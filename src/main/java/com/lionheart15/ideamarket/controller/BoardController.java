@@ -36,7 +36,9 @@ public class BoardController {
     public String boardList(@PathVariable String category, Model model,
                             @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchOption,
                             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        model.addAttribute("userId", userId);
+        
         Page<Board> boardPage = null;
         if(searchOption == null) {
             boardPage = boardService.findByCategory(category, pageable);
@@ -72,6 +74,15 @@ public class BoardController {
     // view
     @GetMapping("/view/{id}")
     public String boardView(Model model, @PathVariable Long id) {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        model.addAttribute("userId", userId);
+        if(userId != null) {
+            model.addAttribute("userLoginId", userService.findById(userId).getLoginId());
+            if(userId == boardService.boardView(id).getUser().getId()) {
+                model.addAttribute("myBoard", true);
+            }
+        }
+
         model.addAttribute("board", boardService.boardView(id));
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> loginUser = userService.findByLoginId(loginId);
@@ -82,9 +93,23 @@ public class BoardController {
     }
 
     // write
-    @GetMapping("/write")
-    public String createBoard() {
-        return "writer";
+    @GetMapping("/{category}/write")
+    public String createBoard(@PathVariable String category, Model model) {
+        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        User loginUser = userService.findByLoginId(loginId).get();
+        model.addAttribute("userId", loginId);
+        board.setCategory(category);
+        board.setUser(userService.findById(loginUser.getId()));
+        
+       String role = loginUser.getRole();
+
+        if(category.equals("Notice")){
+            if(role.equals("ADMIN")){
+                return "writer";
+            }else
+                return "";
+        }
+            return "writer";
     }
 
     @PostMapping("/create_post")
@@ -106,6 +131,9 @@ public class BoardController {
     // edit
     @GetMapping("/edit/{id}")
     public String boardEdit(@PathVariable Long id, Model model) {
+        Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
+        model.addAttribute("userId", userId);
+
         Optional<Board> optionalBoard = Optional.ofNullable(boardService.boardView(id));
         model.addAttribute("board", optionalBoard.get());
         return "edit";
