@@ -67,7 +67,7 @@ public class MakeInitData {
 
         List<Board> boards = new ArrayList<>();
         for(int i = 0 ; i <= 18 ; i ++) {
-            boards.add(Board.builder().title("title" + (i + 6)).content("123").createdAt(time).category("Development").user(user1).build());
+            boards.add(Board.builder().title("title" + (i + 6)).content("123").createdAt(time).category("Development").user(user).build());
             boardRepository.save(boards.get(i));
         }
 
