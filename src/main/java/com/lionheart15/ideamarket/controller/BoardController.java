@@ -1,28 +1,24 @@
 package com.lionheart15.ideamarket.controller;
 
-import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
-import com.lionheart15.ideamarket.domain.dto.CommentRequestDto;
-import com.lionheart15.ideamarket.domain.dto.CommentResponseDto;
+import com.lionheart15.ideamarket.domain.dto.*;
 import com.lionheart15.ideamarket.domain.entity.Board;
 import com.lionheart15.ideamarket.domain.entity.Comment;
 import com.lionheart15.ideamarket.domain.entity.User;
-import com.lionheart15.ideamarket.service.BoardService;
-import com.lionheart15.ideamarket.service.CommentService;
-import com.lionheart15.ideamarket.service.GoodService;
-import com.lionheart15.ideamarket.service.UserService;
+import com.lionheart15.ideamarket.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Optional;
@@ -37,22 +33,31 @@ public class BoardController {
     private final UserService userService;
     private final GoodService goodService;
     private final CommentService commentService;
+    private final NotificationService notificationService;
 
     @GetMapping("/{category}")
     public String boardList(@PathVariable String category, Model model,
                             @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchOption,
-                            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+                            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) @Qualifier("board") Pageable boardPageable,
+                            @PageableDefault(size = 5, sort = "createdAt", direction = Sort.Direction.DESC) @Qualifier("notification")Pageable notificationPageable) {
         Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("userId", userId);
+        if(userId != null) {
+            List<NotificationResponse> notifications = notificationService.findByUserId(userId, notificationPageable);
+            model.addAttribute("notifications", notifications);
+            if(notifications.size() != 0) {
+                model.addAttribute("notification", true);
+            }
+        }
 
         Page<Board> boardPage = null;
         if(searchOption == null) {
-            boardPage = boardService.findByCategory(category, pageable);
+            boardPage = boardService.findByCategory(category, boardPageable);
         }
         else if(searchOption.equals("title")) {
-            boardPage = boardService.findByCategoryAndTitle(category, keyword, pageable);
+            boardPage = boardService.findByCategoryAndTitle(category, keyword, boardPageable);
         } else if(searchOption.equals("userName")) {
-            boardPage = boardService.findByCategoryAndUserName(category, keyword, pageable);
+            boardPage = boardService.findByCategoryAndUserName(category, keyword, boardPageable);
         }
 
         List<BoardListResponse> responseList = boardPage.stream()
@@ -84,21 +89,24 @@ public class BoardController {
         return "list";
     }
 
-    // list
-    @GetMapping("/list")
-    public String boardList() {
-        return "list";
-    }
-
     // view
     @GetMapping("/view/{id}")
-    public String boardView(Model model, @PathVariable Long id) {
+    public String boardView(Model model, @PathVariable Long id, @RequestParam @Nullable Long not,
+                            @PageableDefault(size = 5, sort = "createdAt", direction = Sort.Direction.DESC) @Qualifier("notification")Pageable notificationPageable) {
         Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("userId", userId);
         if(userId != null) {
             model.addAttribute("userLoginId", userService.findById(userId).getLoginId());
             if(userId == boardService.boardView(id).getUser().getId()) {
                 model.addAttribute("myBoard", true);
+            }
+            if(not != null) {
+                notificationService.deleteById(not);
+            }
+            List<NotificationResponse> notifications = notificationService.findByUserId(userId, notificationPageable);
+            model.addAttribute("notifications", notifications);
+            if(notifications.size() != 0) {
+                model.addAttribute("notification", true);
             }
         }
 
@@ -123,10 +131,19 @@ public class BoardController {
 
     // write
     @GetMapping("/{category}/write")
-    public String createBoard(@PathVariable String category, Model model) {
+    public String createBoard(@PathVariable String category, Model model,
+                              @PageableDefault(size = 5, sort = "createdAt", direction = Sort.Direction.DESC) @Qualifier("notification")Pageable notificationPageable) {
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
         User loginUser = userService.findByLoginId(loginId).get();
-        model.addAttribute("userId", loginUser.getId());
+        Long userId = loginUser.getId();
+        model.addAttribute("userId", userId);
+        if(userId != null) {
+            List<NotificationResponse> notifications = notificationService.findByUserId(userId, notificationPageable);
+            model.addAttribute("notifications", notifications);
+            if(notifications.size() != 0) {
+                model.addAttribute("notification", true);
+            }
+        }
         
        String role = loginUser.getRole();
 
@@ -159,10 +176,17 @@ public class BoardController {
 
     // edit
     @GetMapping("/edit/{id}")
-    public String boardEdit(@PathVariable Long id, Model model) {
+    public String boardEdit(@PathVariable Long id, Model model,
+                            @PageableDefault(size = 5, sort = "createdAt", direction = Sort.Direction.DESC) @Qualifier("notification")Pageable notificationPageable) {
         Long userId = userService.getLoginUserId(SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("userId", userId);
-
+        if(userId != null) {
+            List<NotificationResponse> notifications = notificationService.findByUserId(userId, notificationPageable);
+            model.addAttribute("notifications", notifications);
+            if(notifications.size() != 0) {
+                model.addAttribute("notification", true);
+            }
+        }
 
         Optional<Board> optionalBoard = Optional.ofNullable(boardService.boardView(id));
 
@@ -205,16 +229,21 @@ public class BoardController {
 
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> loginUser = userService.findByLoginId(loginId);
-        if(loginUser.isPresent()){
-            commentRequestDto.setUser(loginUser.get());
-        }else{
-            log.info("로그인 유저 아이디가 없습니다!");
-        }
+        commentRequestDto.setUser(loginUser.get());
 
-        log.info("board : " + commentRequestDto.getBoard().getId());
-        log.info("content : " + commentRequestDto.getContent());
-        log.info("setCreateAt : " + commentRequestDto.getCreateAt());
         commentService.save(commentRequestDto);
+
+        // 댓글 작성 시 알림 생성
+        NotificationCreateRequest request = NotificationCreateRequest.builder()
+                .isChecked(false)
+                .typeChecked(false)
+                .createdAt(LocalDateTime.now())
+                .notUrl("/boards/view/" + board.getId())
+                .userId(board.getUser().getId())
+                .boardId(board.getId())
+                .build();
+
+        notificationService.save(request);
 
         return "redirect:/boards/view/{boardId}";
     }

@@ -1,6 +1,7 @@
 package com.lionheart15.ideamarket.controller;
 
 import com.lionheart15.ideamarket.domain.dto.BoardListResponse;
+import com.lionheart15.ideamarket.domain.dto.NotificationResponse;
 import com.lionheart15.ideamarket.domain.dto.UserSignUpDto;
 import com.lionheart15.ideamarket.domain.entity.Board;
 import com.lionheart15.ideamarket.domain.entity.Comment;
@@ -8,9 +9,11 @@ import com.lionheart15.ideamarket.domain.entity.Good;
 import com.lionheart15.ideamarket.domain.entity.User;
 import com.lionheart15.ideamarket.service.BoardService;
 import com.lionheart15.ideamarket.service.CommentService;
+import com.lionheart15.ideamarket.service.NotificationService;
 import com.lionheart15.ideamarket.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +41,7 @@ public class UserController {
     private final UserService userService;
     private final BoardService boardService;
     private final CommentService commentService;
+    private final NotificationService notificationService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -82,7 +86,8 @@ public class UserController {
 
     @GetMapping("/{userId}/myPage")
     public String myPage(@PathVariable Long userId, Model model,
-                         @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+                         @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) @Qualifier("board") Pageable boardPageable,
+                         @PageableDefault(size = 5, sort = "createdAt", direction = Sort.Direction.DESC) @Qualifier("notification")Pageable notificationPageable) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> optionalUser = userService.findByLoginId(auth.getName());
 
@@ -93,21 +98,29 @@ public class UserController {
 
         model.addAttribute("userId", userId);
         model.addAttribute("userLoginId", optionalUser.get().getLoginId());
+
+        if(userId != null) {
+            List<NotificationResponse> notifications = notificationService.findByUserId(userId, notificationPageable);
+            model.addAttribute("notifications", notifications);
+            if(notifications.size() != 0) {
+                model.addAttribute("notification", true);
+            }
+        }
         
         User user = optionalUser.get();
-        Page<Board> boardListPage = boardService.findByUserId(userId,pageable);
+        Page<Board> boardListPage = boardService.findByUserId(userId,boardPageable);
         model.addAttribute("boardList",boardListPage);
         //user 엔티티에 매핑되어있는 board 에 대한 값들을 저장
-        int boardPrevious = pageable.previousOrFirst().getPageNumber();
-        int boardNext = pageable.next().getPageNumber();
+        int boardPrevious = boardPageable.previousOrFirst().getPageNumber();
+        int boardNext = boardPageable.next().getPageNumber();
         model.addAttribute("boardprevious",boardPrevious);
         model.addAttribute("boardnext",boardNext);
 
 
-        Page<Comment> commentListPage = commentService.findByUserId(userId,pageable);
+        Page<Comment> commentListPage = commentService.findByUserId(userId,boardPageable);
         model.addAttribute("commentList",commentListPage);
-        int commentPrevious = pageable.previousOrFirst().getPageNumber();
-        int commentNext = pageable.next().getPageNumber();
+        int commentPrevious = boardPageable.previousOrFirst().getPageNumber();
+        int commentNext = boardPageable.next().getPageNumber();
         model.addAttribute("commentprevious",commentPrevious);
         model.addAttribute("commentnext",commentNext);
         //user 엔티티에 매핑되어있는 comment 에 대한 값들 저장
